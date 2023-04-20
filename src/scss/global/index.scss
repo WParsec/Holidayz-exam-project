@@ -1,0 +1,19 @@
+@import "../variables/index.scss";
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+    background: $background-main;
+}
+
+.container {
+  max-width: 1400px;
+  margin: auto;
+  width: 100%;
+  position: relative;
+  padding: 1rem;
+}
