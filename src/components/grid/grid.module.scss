@@ -1,0 +1,44 @@
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-gap: 1rem;
+  }
+  
+  .venueCard {
+    width: 100%;
+    background-color: transparent;
+    border-radius: 8px;
+  }
+  
+  .imageWrapper {
+    width: 100%;
+    padding-bottom: 75%;
+    position: relative;
+  
+    img {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+  }
+  
+  .venueInfo {
+    padding: 0.5rem 0;
+    p {
+      font-size: 14px;
+      font-weight: bold;
+      margin: 0;
+    }
+  }
+  
+// Media queries
+
+@media (max-width: 480px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  }

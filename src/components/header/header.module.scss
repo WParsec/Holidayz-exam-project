@@ -1,3 +1,5 @@
+@import '../../scss/variables';
+
 .header {
     position: absolute;
     top: 0;
@@ -5,10 +7,78 @@
     width: 100%;
     z-index: 1;
     min-height: 4rem;
-    backdrop-filter: blur(7px);
-    background-color: #f2f2f210;
+    backdrop-filter: blur($blur);
+    background-color: $blur-color;
   }
+
+.container {
+  position: relative;
+}
+
+.logo_div {
+  display: inline;
+}
 
 .logo {
   width: 100px;
+}
+
+.header_wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav {
+  height: 100%;
+  max-height: 24px;
+  display: flex;
+  width: 100%;
+  max-width: 5rem;
+  justify-content: space-between;
+
+  & img {
+    height: 100%;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+.navBox {
+  position: absolute;
+  width: 100%;
+  max-width: 160px;
+  height: fit-content;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  top: 4.1rem;
+  right: 0; 
+  z-index: 10;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+  backdrop-filter: blur($blur);
+  background-color: #f2f2f2;
+
+  & a {
+    color: $dark;
+    height: fit-content;
+    padding: 1rem;
+  }
+}
+
+
+// Media queries
+@media (max-width: 768px) {
+  .header {
+    min-height: 3rem;
+  }
+  .logo {
+    width: 80px;
+  }
+  nav {
+    max-width: 4rem;
+    max-height: 19px;
+  } 
 }
