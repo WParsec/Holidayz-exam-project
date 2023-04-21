@@ -13,6 +13,7 @@ import styles from './home.module.scss'
 function Home() {
   const [backgroundImage, setBackgroundImage] = useState('/assets/backgrounds/anywhere.jpg');
   const { data: venues, isLoading, isError } = useApi('https://api.noroff.dev/api/v1/holidaze/venues');
+  const [activeIndex, setActiveIndex] = useState(0);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -29,15 +30,41 @@ function Home() {
     'Africa',
     'South America',
     'North America',
-    'Oceania',
+    'Australia',
   ];
 
   const handleSearch = (e) => {
     e.preventDefault();
   };
 
-  const handleFilterByContinent = (continent) => {
-  };
+  const handleFilterByContinent = (continent, index) => {
+    setActiveIndex(index);
+    switch (continent) {
+      case 'Anywhere':
+        setBackgroundImage('/assets/backgrounds/anywhere.jpg');
+        break;
+      case 'Asia':
+        setBackgroundImage('/assets/backgrounds/asia.jpg');
+        break;
+      case 'Europe':
+        setBackgroundImage('/assets/backgrounds/europe.jpg');
+        break;
+      case 'Africa':
+        setBackgroundImage('/assets/backgrounds/africa.jpg');
+        break;
+      case 'South America':
+        setBackgroundImage('/assets/backgrounds/south-america.jpg');
+        break;
+      case 'North America':
+        setBackgroundImage('/assets/backgrounds/north-america.jpg');
+        break;
+      case 'Australia':
+        setBackgroundImage('/assets/backgrounds/australia.jpg');
+        break;
+      default:
+        break;
+    }
+  };  
 
   return (
     <main>
@@ -47,7 +74,8 @@ function Home() {
         </div>
         <div className={styles.filter_div}>
             {continents.map((continent, index) => (
-              <button className={styles.continent} key={index} onClick={() => handleFilterByContinent(continent)}>
+              <button className={`${styles.continent} ${index === activeIndex ? styles.active : ''}`}
+               key={index} onClick={() => handleFilterByContinent(continent, index)}>
                 {continent}
               </button>
             ))}

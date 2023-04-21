@@ -6,5 +6,9 @@
     align-items: center;
     height: 40px;
     background-color: $dark;
-    color: $background-main;
+
+    & p {
+        color: $background-main;
+        font-size: 14px;
+    }
 }
