@@ -12,7 +12,7 @@ function Hero({ backgroundImage, children }) {
       }}>
       <div className='container'>
         <div className={styles.heroContent}>
-          <h1>Accommodation <br/> Worldwide</h1>
+          <h1>Accommodation Worldwide</h1>
           <h4>Where to next?</h4>
           {children}
         </div>

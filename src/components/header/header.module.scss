@@ -6,7 +6,7 @@
     left: 0;
     width: 100%;
     z-index: 1;
-    min-height: 4rem;
+    min-height: 3rem;
     backdrop-filter: blur($blur);
     background-color: $blur-color;
   }
@@ -20,7 +20,7 @@
 }
 
 .logo {
-  width: 100px;
+  width: 80px;
 }
 
 .header_wrap {
@@ -31,7 +31,7 @@
 
 nav {
   height: 100%;
-  max-height: 24px;
+  max-height: 19px;
   display: flex;
   width: 100%;
   max-width: 5rem;

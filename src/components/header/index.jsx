@@ -32,7 +32,7 @@ function Header() {
       <div className={`container ${styles.container}`}>
         <div className={styles.header_wrap}>
           <div className={styles.logo_div}>
-            <img src="/assets/logo.svg" alt="Logo" className={styles.logo} />
+            <Link to='/'><img src="/assets/logo.svg" alt="Logo" className={styles.logo} /></Link>
           </div>
           <nav>
             <Link to='/'><img src="/assets/icons/zoom.svg" alt="Search" /></Link>

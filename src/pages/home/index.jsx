@@ -24,13 +24,13 @@ function Home() {
   }
 
   const continents = [
-    'Anywhere',
-    'Asia',
-    'Europe',
-    'Africa',
-    'South America',
-    'North America',
-    'Australia',
+    'ANYWHERE',
+    'ASIA',
+    'EUROPE',
+    'AFRICA',
+    'SOUTH AMERICA',
+    'NORTH AMERICA',
+    'AUSTRALIA',
   ];
 
   const handleSearch = (e) => {
@@ -40,25 +40,25 @@ function Home() {
   const handleFilterByContinent = (continent, index) => {
     setActiveIndex(index);
     switch (continent) {
-      case 'Anywhere':
+      case 'ANYWHERE':
         setBackgroundImage('/assets/backgrounds/anywhere.jpg');
         break;
-      case 'Asia':
+      case 'ASIA':
         setBackgroundImage('/assets/backgrounds/asia.jpg');
         break;
-      case 'Europe':
+      case 'EUROPE':
         setBackgroundImage('/assets/backgrounds/europe.jpg');
         break;
-      case 'Africa':
+      case 'AFRICA':
         setBackgroundImage('/assets/backgrounds/africa.jpg');
         break;
-      case 'South America':
+      case 'SOUTH AMERICA':
         setBackgroundImage('/assets/backgrounds/south-america.jpg');
         break;
-      case 'North America':
+      case 'NORTH AMERICA':
         setBackgroundImage('/assets/backgrounds/north-america.jpg');
         break;
-      case 'Australia':
+      case 'AUSTRALIA':
         setBackgroundImage('/assets/backgrounds/australia.jpg');
         break;
       default:
