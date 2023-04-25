@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState, useEffect } from 'react'
 
 // Import components
 import Hero from '../../components/hero'
@@ -13,7 +13,14 @@ import styles from './home.module.scss'
 function Home() {
   const [backgroundImage, setBackgroundImage] = useState('/assets/backgrounds/anywhere.jpg');
   const { data: venues, isLoading, isError } = useApi('https://api.noroff.dev/api/v1/holidaze/venues');
+  const [filteredVenues, setFilteredVenues] = useState([]);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [searchQuery, setSearchQuery] = useState('');
+
+  useEffect(() => {
+    setFilteredVenues(venues);
+  }, [venues]);
+
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -33,44 +40,67 @@ function Home() {
     'AUSTRALIA',
   ];
 
-  const handleSearch = (e) => {
-    e.preventDefault();
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
   };
 
+
+
+  // Filter venues by continent
   const handleFilterByContinent = (continent, index) => {
     setActiveIndex(index);
-    switch (continent) {
-      case 'ANYWHERE':
+    const normalizedContinent = continent.toLowerCase();
+    setSearchQuery(normalizedContinent);
+  
+    if (normalizedContinent === 'anywhere') {
+      setFilteredVenues(venues);
+    } else {
+      const filtered = venues.filter((venue) => venue.location.continent.toLowerCase() === normalizedContinent);
+      setFilteredVenues(filtered);
+    }
+  
+    // Update the background image
+    switch (normalizedContinent) {
+      case 'anywhere':
         setBackgroundImage('/assets/backgrounds/anywhere.jpg');
         break;
-      case 'ASIA':
+      case 'asia':
         setBackgroundImage('/assets/backgrounds/asia.jpg');
         break;
-      case 'EUROPE':
+      case 'europe':
         setBackgroundImage('/assets/backgrounds/europe.jpg');
         break;
-      case 'AFRICA':
+      case 'africa':
         setBackgroundImage('/assets/backgrounds/africa.jpg');
         break;
-      case 'SOUTH AMERICA':
+      case 'south america':
         setBackgroundImage('/assets/backgrounds/south-america.jpg');
         break;
-      case 'NORTH AMERICA':
+      case 'north america':
         setBackgroundImage('/assets/backgrounds/north-america.jpg');
         break;
-      case 'AUSTRALIA':
+      case 'australia':
         setBackgroundImage('/assets/backgrounds/australia.jpg');
         break;
       default:
         break;
     }
-  };  
+  };
+  
 
   return (
     <main>
       <Hero backgroundImage={backgroundImage}>
         <div className={styles.search_div}>
-
+          <form className={styles.search_form}>
+            <input 
+              type="text"
+              className={styles.search_input}
+              placeholder="Bangkok, Paris, New York..."
+              value={searchQuery}
+              onChange={handleSearchChange}
+              />
+          </form>
         </div>
         <div className={styles.filter_div}>
             {continents.map((continent, index) => (
@@ -81,7 +111,7 @@ function Home() {
             ))}
         </div>
       </Hero>
-      <Grid venues={venues} />
+      <Grid venues={filteredVenues} />
     </main>
   );
 }

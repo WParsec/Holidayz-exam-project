@@ -36,9 +36,9 @@ function Header() {
           </div>
           <nav>
             <Link to='/'><img src="/assets/icons/zoom.svg" alt="Search" /></Link>
-              <div className="navIcon" onClick={(e) => { e.stopPropagation(); toggleNavBox(); }}>
+              <button className="navIcon" onClick={(e) => { e.stopPropagation(); toggleNavBox(); }}>
                 <img src="/assets/icons/profile.svg" alt="User icon" />
-              </div>
+              </button>
             {showNav && (
               <div className={styles.navBox}>
                 <Link to='/auth'>Login/Register</Link>

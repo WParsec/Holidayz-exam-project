@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import styles from './grid.module.scss';
 
 function Grid({ venues }) {
+  console.log(venues);
+  
   return (
     <section>
       <div className='container'>
