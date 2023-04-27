@@ -2,19 +2,16 @@
 
 .search_div {
     width: 100%;
-    padding: 1rem 0;
+    padding: 1rem 0 4rem 0;
 }
 
-.filter_div {
+.filter_div, .filter_countries_div {
+    transition: all 400ms;
     width: 100%;
     max-width: 1000px;
     display: flex;
-    justify-content: space-between;
-    position: absolute;
-    bottom: 0;
-    left: 0;
     padding: 1rem;
-    gap: 1rem;
+    gap: 2rem;
     overflow-x: auto;
     border-top: 1px solid #f2f2f28c;
 }
@@ -39,7 +36,7 @@
       }
 }
 
-.continent {
+.continent, .country {
     color: $background-main;
     font-family: 'Knewave';
     font-size: 1.5rem;

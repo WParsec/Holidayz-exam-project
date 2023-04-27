@@ -16,6 +16,10 @@ function Home() {
   const [filteredVenues, setFilteredVenues] = useState([]);
   const [activeIndex, setActiveIndex] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
+  // country filtering
+  const [countries, setCountries] = useState([]);
+  const [activeCountry, setActiveCountry] = useState(null);
+
 
   useEffect(() => {
     setFilteredVenues(venues);
@@ -54,9 +58,14 @@ function Home() {
   
     if (normalizedContinent === 'anywhere') {
       setFilteredVenues(venues);
+      setCountries([]);
+      setActiveCountry(null);
     } else {
       const filtered = venues.filter((venue) => venue.location.continent.toLowerCase() === normalizedContinent);
       setFilteredVenues(filtered);
+      const countriesInContinent = [...new Set(filtered.map((venue) => venue.location.country))];
+      setCountries(countriesInContinent);
+      setActiveCountry(null);
     }
   
     // Update the background image
@@ -86,6 +95,18 @@ function Home() {
         break;
     }
   };
+
+  // Filter venues by country
+  const handleFilterByCountry = (country) => {
+    setActiveCountry(country);
+    if (country === null) {
+      handleFilterByContinent(continents[activeIndex], activeIndex);
+    } else {
+      const filteredByCountry = venues.filter((venue) => venue.location.country === country && venue.location.continent.toLowerCase() === continents[activeIndex].toLowerCase());
+      setFilteredVenues(filteredByCountry);
+    }
+  };
+  
   
 
   return (
@@ -93,27 +114,53 @@ function Home() {
       <Hero backgroundImage={backgroundImage}>
         <div className={styles.search_div}>
           <form className={styles.search_form}>
-            <input 
+            <input
               type="text"
               className={styles.search_input}
               placeholder="Bangkok, Paris, New York..."
               value={searchQuery}
               onChange={handleSearchChange}
-              />
+            />
           </form>
         </div>
         <div className={styles.filter_div}>
-            {continents.map((continent, index) => (
-              <button className={`${styles.continent} ${index === activeIndex ? styles.active : ''}`}
-               key={index} onClick={() => handleFilterByContinent(continent, index)}>
-                {continent}
+          {continents.map((continent, index) => (
+            <button
+              className={`${styles.continent} ${
+                index === activeIndex ? styles.active : ""
+              }`}
+              key={index}
+              onClick={() => handleFilterByContinent(continent, index)}
+            >
+              {continent}
+            </button>
+          ))}
+        </div>
+        {countries.length > 0 && (
+          <div className={styles.filter_countries_div}>
+            <button
+              className={`${styles.country} ${activeCountry === null ? styles.active : ""}`}
+              onClick={() => handleFilterByCountry(null)}>
+              All
+            </button>
+            {countries.map((country, index) => (
+              <button
+                className={`${styles.country} ${
+                  country === activeCountry ? styles.active : ""
+                }`}
+                key={index}
+                onClick={() => handleFilterByCountry(country)}
+              >
+                {country}
               </button>
             ))}
-        </div>
+          </div>
+        )}
       </Hero>
       <Grid venues={filteredVenues} />
     </main>
-  );
+  );  
 }
+  
 
 export default Home;

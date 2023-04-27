@@ -11,13 +11,10 @@
   }
 
   .heroContent {
-    padding: 8rem 0rem;
+    padding: 8rem 0rem 0rem;
     position: relative;
 
     @media (max-width: 480px) {
-      height: 95vh;
-      height: 95dvh;
-
       h1, h4 {
         text-align: center;
       }
