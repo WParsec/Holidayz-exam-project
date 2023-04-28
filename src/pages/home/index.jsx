@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import DatePicker from 'react-datepicker'
 
 // Import components
 import Hero from '../../components/hero'
@@ -12,13 +13,16 @@ import styles from './home.module.scss'
 
 function Home() {
   const [backgroundImage, setBackgroundImage] = useState('/assets/backgrounds/anywhere.jpg');
-  const { data: venues, isLoading, isError } = useApi('https://api.noroff.dev/api/v1/holidaze/venues');
+  const { data: venues, isLoading, isError } = useApi('https://api.noroff.dev/api/v1/holidaze/venues?limit=100');
   const [filteredVenues, setFilteredVenues] = useState([]);
   const [activeIndex, setActiveIndex] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
-  // country filtering
+  // Country filtering
   const [countries, setCountries] = useState([]);
   const [activeCountry, setActiveCountry] = useState(null);
+  // Date filtering
+  const [dateFrom, setDateFrom] = useState('');
+  const [dateTo, setDateTo] = useState('');
 
 
   useEffect(() => {
@@ -48,8 +52,6 @@ function Home() {
     setSearchQuery(e.target.value);
   };
 
-
-
   // Filter venues by continent
   const handleFilterByContinent = (continent, index) => {
     setActiveIndex(index);
@@ -57,6 +59,7 @@ function Home() {
     setSearchQuery(normalizedContinent);
   
     if (normalizedContinent === 'anywhere') {
+      setSearchQuery('');
       setFilteredVenues(venues);
       setCountries([]);
       setActiveCountry(null);
@@ -102,36 +105,60 @@ function Home() {
     if (country === null) {
       handleFilterByContinent(continents[activeIndex], activeIndex);
     } else {
+      const normalizedCountry = country.toLowerCase();
+      setSearchQuery(normalizedCountry);
       const filteredByCountry = venues.filter((venue) => venue.location.country === country && venue.location.continent.toLowerCase() === continents[activeIndex].toLowerCase());
       setFilteredVenues(filteredByCountry);
     }
   };
   
-  
+  // Open date picker onClick
+  const handleInputClick = (e) => {
+    e.target.focus();
+  };
 
   return (
     <main>
       <Hero backgroundImage={backgroundImage}>
-        <div className={styles.search_div}>
+        <div className={styles.search_filter_wrap}>
           <form className={styles.search_form}>
-            <input
-              type="text"
-              className={styles.search_input}
-              placeholder="Bangkok, Paris, New York..."
-              value={searchQuery}
-              onChange={handleSearchChange}
-            />
+            <div className={styles.search_and_button_wrap}>
+              <div className={styles.search_div}>
+                <label htmlFor="search">Where?</label>
+                <input
+                  type="text"
+                  name='search'
+                  className={styles.search_input}
+                  placeholder="Bangkok, Paris, New York..."
+                  value={searchQuery}
+                  onChange={handleSearchChange}
+                  />
+              </div>
+              <button className={styles.advanced_desktop}><img src="/assets/icons/filter.svg" alt="filter" /></button>
+            </div>
+            <div className={styles.date_and_filter}>
+              <label htmlFor="dateFrom">Date from/to</label>
+              <div className={styles.date_div}>
+                <input 
+                type="date" 
+                name='dateFrom'
+                className={styles.date_input}
+                value={dateFrom}
+                onClick={handleInputClick}
+                onChange={(e) => setDateFrom(e.target.value)}/>
+                <button className={styles.advanced_desktop}><img src="/assets/icons/filter.svg" alt="filter" /></button>
+              </div>
+            </div>
+            <div className='button_wrap'>
+              <button className='cta'>Search</button>
+            </div>
           </form>
         </div>
         <div className={styles.filter_div}>
           {continents.map((continent, index) => (
-            <button
-              className={`${styles.continent} ${
-                index === activeIndex ? styles.active : ""
-              }`}
+            <button className={`${styles.continent} ${index === activeIndex ? styles.active : ""}`}
               key={index}
-              onClick={() => handleFilterByContinent(continent, index)}
-            >
+              onClick={() => handleFilterByContinent(continent, index)}>
               {continent}
             </button>
           ))}
@@ -145,12 +172,7 @@ function Home() {
             </button>
             {countries.map((country, index) => (
               <button
-                className={`${styles.country} ${
-                  country === activeCountry ? styles.active : ""
-                }`}
-                key={index}
-                onClick={() => handleFilterByCountry(country)}
-              >
+                className={`${styles.country} ${country === activeCountry ? styles.active : ""}`} key={index} onClick={() => handleFilterByCountry(country)}>
                 {country}
               </button>
             ))}

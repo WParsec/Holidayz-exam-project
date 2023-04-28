@@ -1,0 +1,27 @@
+@import "../variables/index.scss";
+
+.cta {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+    height: 4rem;
+    padding: 0 2.5rem;
+    border-radius: 5rem;
+    background-color: $secondary-light;
+    color: $dark;
+    font-family: 'Knewave', cursive;
+    font-size: 1.2rem;
+}
+
+.button_wrap {
+    display: flex;
+    align-items: flex-end;
+}
+
+// media queries
+@media (max-width: 700px) {
+    .cta {
+        width: 100%;
+    }
+}

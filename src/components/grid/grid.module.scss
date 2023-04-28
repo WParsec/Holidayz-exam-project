@@ -1,3 +1,5 @@
+@import '../../scss/variables';
+
 .grid {
   display: grid;
   grid-gap: 1rem;
@@ -47,10 +49,23 @@
   
   .venueInfo {
     padding: 0.5rem 0;
-    p {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    & img {
+      height: 13px;
+    }
+
+    & p {
+      width: max-content;
+    }
+
+    h5 {
       font-size: 14px;
       font-weight: bold;
-      margin: 0;
+      color: $dark;
+      flex: 1 1 0;
     }
   }
   

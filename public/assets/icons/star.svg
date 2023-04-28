@@ -1,1 +1,5 @@
-<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>star</title><g fill="none" class="nc-icon-wrapper"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27z" fill="#ffffff"></path></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+  <g id="star" transform="translate(-2 -2)">
+    <path id="Path_16" data-name="Path 16" d="M10,14.859,14.944,18l-1.312-5.92L18,8.1l-5.752-.514L10,2,7.752,7.583,2,8.1,6.368,12.08,5.056,18Z" fill="#252525"/>
+  </g>
+</svg>
