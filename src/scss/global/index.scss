@@ -47,6 +47,40 @@ section {
 button {
   background: none;
   border: none;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:active {
+    transform: scale(0.9);
+  }
+}
+
+// Date picker
+
+.react-datepicker {
+  border-radius: 1rem;
+  background-color: $background-main;
+  border: none;
+  color: white;
+  width: 100%;
+}
+
+.react-datepicker__day--selected,
+.react-datepicker__day--in-range,
+.react-datepicker__day:hover {
+  /* Background color for selected days, days within the range, and days on hover */
+  background-color: $main-light;
+  color: white; /* Text color for these days */
+}
+
+.react-datepicker__header {
+  /* Background color for the header */
+  background-color: $dark;
+  & * {
+    color: white; /* Text color for the header */
+  }
 }
 
 // Media queries

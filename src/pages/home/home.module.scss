@@ -1,5 +1,4 @@
 @import '../../scss/variables';
-@import 'react-datepicker/dist/react-datepicker.css';
 
 .search_filter_wrap {
     width: 100%;
@@ -61,11 +60,12 @@
 .date_div {
     display: flex;
     width: 100%;
-    gap: 1rem;
 
-    & input {
+    & .customInput {
         color: $background-main;
         height: 4rem;
+        width: 100%;
+        text-align: center;
         border: none;
         border-radius: 5rem;
         padding: 0 2rem;
@@ -73,6 +73,16 @@
         outline: none;
         backdrop-filter: blur($blur);
         background-color: rgba(245, 245, 245, 0.265);
+
+        &::placeholder { 
+            color: $background-main;
+            opacity: 0.7;
+          }
+    }
+
+    & button {
+        margin-left: 1rem;
+        flex-shrink: 0;
     }
 }
 

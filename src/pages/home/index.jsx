@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react'
-import DatePicker from 'react-datepicker'
+import React, { useState, useEffect, useRef } from 'react'
 
 // Import components
 import Hero from '../../components/hero'
 import Grid from '../../components/grid'
+import continents from '../../data/continents';
 
 // Import hooks
 import useApi from '../../hooks/useApi';
@@ -11,22 +11,37 @@ import useApi from '../../hooks/useApi';
 // Import styles
 import styles from './home.module.scss'
 
+// Date picker
+import DatePicker from 'react-datepicker';
+import { isAfter, isBefore } from 'date-fns';
+import 'react-datepicker/dist/react-datepicker.css';
+import CustomDateRangeInput from '../../components/customInput';
+
+
 function Home() {
   const [backgroundImage, setBackgroundImage] = useState('/assets/backgrounds/anywhere.jpg');
-  const { data: venues, isLoading, isError } = useApi('https://api.noroff.dev/api/v1/holidaze/venues?limit=100');
+  const { data: venues, isLoading, isError } = useApi('https://api.noroff.dev/api/v1/holidaze/venues?limit=100&_bookings=true');
   const [filteredVenues, setFilteredVenues] = useState([]);
   const [activeIndex, setActiveIndex] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
+  const gridRef = useRef();
   // Country filtering
   const [countries, setCountries] = useState([]);
   const [activeCountry, setActiveCountry] = useState(null);
   // Date filtering
-  const [dateFrom, setDateFrom] = useState('');
-  const [dateTo, setDateTo] = useState('');
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+  const today = new Date();
+  // Filter bad items from the API
+  const [venuesWithLocation, setVenuesWithLocation] = useState([]);
 
 
   useEffect(() => {
-    setFilteredVenues(venues);
+    // Remove venues that have Unknown in country, city or if media array is empty
+    let filteredVenuesWithLocation = venues.filter((venue) => {
+      return venue.location.country !== 'Unknown' && venue.location.city !== 'Unknown' && venue.media.length > 0;
+    });
+    setVenuesWithLocation(filteredVenuesWithLocation);
   }, [venues]);
 
 
@@ -37,16 +52,6 @@ function Home() {
   if (isError) {
     return <div>Error</div>;
   }
-
-  const continents = [
-    'ANYWHERE',
-    'ASIA',
-    'EUROPE',
-    'AFRICA',
-    'SOUTH AMERICA',
-    'NORTH AMERICA',
-    'AUSTRALIA',
-  ];
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
@@ -60,11 +65,11 @@ function Home() {
   
     if (normalizedContinent === 'anywhere') {
       setSearchQuery('');
-      setFilteredVenues(venues);
+      setFilteredVenues(venuesWithLocation);
       setCountries([]);
       setActiveCountry(null);
     } else {
-      const filtered = venues.filter((venue) => venue.location.continent.toLowerCase() === normalizedContinent);
+      const filtered = venuesWithLocation.filter((venue) => venue.location.continent.toLowerCase() === normalizedContinent);
       setFilteredVenues(filtered);
       const countriesInContinent = [...new Set(filtered.map((venue) => venue.location.country))];
       setCountries(countriesInContinent);
@@ -107,21 +112,62 @@ function Home() {
     } else {
       const normalizedCountry = country.toLowerCase();
       setSearchQuery(normalizedCountry);
-      const filteredByCountry = venues.filter((venue) => venue.location.country === country && venue.location.continent.toLowerCase() === continents[activeIndex].toLowerCase());
+      const filteredByCountry = venuesWithLocation.filter((venue) => venue.location.country === country && venue.location.continent.toLowerCase() === continents[activeIndex].toLowerCase());
       setFilteredVenues(filteredByCountry);
     }
   };
-  
-  // Open date picker onClick
-  const handleInputClick = (e) => {
-    e.target.focus();
+
+  // Handle date change
+  const handleDateChange = (dates) => {
+    const [start, end] = dates;
+    setStartDate(start);
+    setEndDate(end);
+    console.log(startDate, endDate);
   };
+
+  // Handle form search
+  const handleFormSearch = (e) => {
+    e.preventDefault();
+  
+    const filteredBySearch = venuesWithLocation.filter((venue) => {
+      // Check if venue matches the search query
+      const matchesQuery =
+        venue.location.city.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        venue.location.country.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        venue.location.continent.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        venue.name.toLowerCase().includes(searchQuery.toLowerCase());
+  
+      // If startDate and endDate are selected, filter out venues with overlapping bookings
+      if (startDate && endDate) {
+        const hasOverlappingBooking = venue.bookings.some((booking) => {
+          const bookingStartDate = new Date(booking.dateFrom);
+          const bookingEndDate = new Date(booking.dateTo);
+          return (
+            (isAfter(startDate, bookingStartDate) && isBefore(startDate, bookingEndDate)) ||
+            (isAfter(endDate, bookingStartDate) && isBefore(endDate, bookingEndDate))
+          );
+        });
+  
+        return matchesQuery && !hasOverlappingBooking;
+      }
+  
+      // If no date range is selected, return venues matching the search query
+      return matchesQuery;
+    });
+  
+    setFilteredVenues(filteredBySearch);
+
+    if (gridRef.current) {
+      gridRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+  
 
   return (
     <main>
       <Hero backgroundImage={backgroundImage}>
         <div className={styles.search_filter_wrap}>
-          <form className={styles.search_form}>
+          <form className={styles.search_form} onSubmit={handleFormSearch}>
             <div className={styles.search_and_button_wrap}>
               <div className={styles.search_div}>
                 <label htmlFor="search">Where?</label>
@@ -139,18 +185,21 @@ function Home() {
             <div className={styles.date_and_filter}>
               <label htmlFor="dateFrom">Date from/to</label>
               <div className={styles.date_div}>
-                <input 
-                type="date" 
-                name='dateFrom'
-                className={styles.date_input}
-                value={dateFrom}
-                onClick={handleInputClick}
-                onChange={(e) => setDateFrom(e.target.value)}/>
-                <button className={styles.advanced_desktop}><img src="/assets/icons/filter.svg" alt="filter" /></button>
+              <DatePicker
+                  selected={startDate}
+                  onChange={handleDateChange}
+                  startDate={startDate}
+                  endDate={endDate}
+                  selectsRange
+                  dateFormat="dd-MM-yyyy"
+                  minDate={today}
+                  customInput={<CustomDateRangeInput customStyles={styles}/>}
+                />
+                {/* <button className={styles.advanced_desktop}><img src="/assets/icons/filter.svg" alt="filter" /></button> */}
               </div>
             </div>
             <div className='button_wrap'>
-              <button className='cta'>Search</button>
+              <button onClick={handleFormSearch} className='cta'>Search</button>
             </div>
           </form>
         </div>
@@ -179,7 +228,7 @@ function Home() {
           </div>
         )}
       </Hero>
-      <Grid venues={filteredVenues} />
+      <Grid venues={filteredVenues} ref={gridRef}/>
     </main>
   );  
 }

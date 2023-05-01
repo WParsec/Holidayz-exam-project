@@ -1,14 +1,14 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import { Link } from 'react-router-dom';
 
 // Import styles
 import styles from './grid.module.scss';
 
-function Grid({ venues }) {
+const Grid = forwardRef(({ venues }, ref) => {
   console.log(venues);
   
   return (
-    <section>
+    <section ref={ref}>
       <div className='container'>
         <div className={styles.grid}>
           {venues.map((venue) => {
@@ -32,7 +32,7 @@ function Grid({ venues }) {
       </div>
     </section>
   );
-}
+});
 
 export default Grid;
 
