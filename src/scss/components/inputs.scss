@@ -1,0 +1,27 @@
+
+input {
+    width: 100%;
+    border: none;
+    border-radius: 5rem;
+    padding: 0 2rem;
+    font-size: 1rem;
+    outline: none;
+    backdrop-filter: blur($blur);
+    background-color: rgba(245, 245, 245, 0.265);
+    transition: all 400ms;
+
+    &::placeholder { 
+        color: $background-main;
+        opacity: 0.7;
+      }
+}
+
+.auth_input {
+    height: 3rem;
+    background-color: $background-main;
+
+    &::placeholder { 
+        color: $dark;
+        opacity: 0.7;
+      }
+}

@@ -1,8 +1,9 @@
 import React, { forwardRef } from 'react';
 import { Link } from 'react-router-dom';
 
-// Import styles
+// Import styles and assets
 import styles from './grid.module.scss';
+import star from '../../assets/icons/star.svg';
 
 const Grid = forwardRef(({ venues }, ref) => {
   console.log(venues);
@@ -20,7 +21,7 @@ const Grid = forwardRef(({ venues }, ref) => {
                 </div>
                 <div className={styles.venueInfo}>
                   <h5>{location.city}, {location.country}</h5>
-                  <p>{rating} <img src="./assets/icons/star.svg" alt="star"/></p>
+                  <p>{rating} <img src={star} alt="star"/></p>
                 </div>
                 <div>
                   <p className={styles.price}>${price}/night</p>

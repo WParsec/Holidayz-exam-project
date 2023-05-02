@@ -15,8 +15,9 @@
   }
 
   .heroContent {
-    padding: 6rem 0rem 0rem;
+    padding: 8rem 0rem 0rem;
     position: relative;
+    min-height: 34rem;
 
     @media (max-width: 480px) {
       height: 100dvh;

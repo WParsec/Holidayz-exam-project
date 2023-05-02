@@ -7,6 +7,7 @@ import Home from './pages/home';
 
 // Pages
 import Venue from './pages/venue';
+import Auth from './pages/auth';
 
 import './App.scss';
 
@@ -16,6 +17,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
+          <Route path="/auth" element={<Auth />} />
           <Route path="/venue/:id" element={<Venue />} />
         </Route>
       </Routes>

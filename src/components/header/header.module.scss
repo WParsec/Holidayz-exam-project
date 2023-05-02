@@ -5,8 +5,7 @@
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 1;
-    min-height: 3rem;
+    z-index: 20;
     backdrop-filter: blur($blur);
     background-color: $blur-color;
   }
@@ -47,6 +46,8 @@ nav {
 
 .navBox {
   position: absolute;
+  display: flex;
+  justify-content: center;
   width: 100%;
   max-width: 160px;
   height: fit-content;
@@ -55,18 +56,23 @@ nav {
   right: 0; 
   z-index: 10;
   border-radius: 8px;
-  display: flex;
-  justify-content: center;
   padding: 1rem;
-  backdrop-filter: blur($blur);
-  background-color: #f2f2f2;
+  background: linear-gradient(180deg, $secondary-light, $secondary-dark);
 
-  & a {
+  & div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  & a, button {
     color: $dark;
     height: fit-content;
     padding: 1rem;
+    font-size: 1rem;
   }
 }
+
 
 
 // Media queries

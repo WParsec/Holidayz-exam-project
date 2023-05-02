@@ -8,8 +8,13 @@ import continents from '../../data/continents';
 // Import hooks
 import useApi from '../../hooks/useApi';
 
-// Import styles
+// Import styles and assets
 import styles from './home.module.scss'
+import filterIcon from '../../assets/icons/filter.svg';
+import anywhere from '../../assets/backgrounds/anywhere-2.jpg';
+
+// Import utils
+import getBackgroundImageUrl from '../../utils/getBackgroundImage';
 
 // Date picker
 import DatePicker from 'react-datepicker';
@@ -19,7 +24,7 @@ import CustomDateRangeInput from '../../components/customInput';
 
 
 function Home() {
-  const [backgroundImage, setBackgroundImage] = useState('/assets/backgrounds/anywhere.jpg');
+  const [backgroundImage, setBackgroundImage] = useState(anywhere);
   const { data: venues, isLoading, isError } = useApi('https://api.noroff.dev/api/v1/holidaze/venues?limit=100&_bookings=true');
   const [filteredVenues, setFilteredVenues] = useState([]);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -42,6 +47,7 @@ function Home() {
       return venue.location.country !== 'Unknown' && venue.location.city !== 'Unknown' && venue.media.length > 0;
     });
     setVenuesWithLocation(filteredVenuesWithLocation);
+    setFilteredVenues(filteredVenuesWithLocation);
   }, [venues]);
 
 
@@ -62,6 +68,7 @@ function Home() {
     setActiveIndex(index);
     const normalizedContinent = continent.toLowerCase();
     setSearchQuery(normalizedContinent);
+    setBackgroundImage(getBackgroundImageUrl(normalizedContinent))
   
     if (normalizedContinent === 'anywhere') {
       setSearchQuery('');
@@ -74,33 +81,6 @@ function Home() {
       const countriesInContinent = [...new Set(filtered.map((venue) => venue.location.country))];
       setCountries(countriesInContinent);
       setActiveCountry(null);
-    }
-  
-    // Update the background image
-    switch (normalizedContinent) {
-      case 'anywhere':
-        setBackgroundImage('/assets/backgrounds/anywhere.jpg');
-        break;
-      case 'asia':
-        setBackgroundImage('/assets/backgrounds/asia.jpg');
-        break;
-      case 'europe':
-        setBackgroundImage('/assets/backgrounds/europe.jpg');
-        break;
-      case 'africa':
-        setBackgroundImage('/assets/backgrounds/africa.jpg');
-        break;
-      case 'south america':
-        setBackgroundImage('/assets/backgrounds/south-america.jpg');
-        break;
-      case 'north america':
-        setBackgroundImage('/assets/backgrounds/north-america.jpg');
-        break;
-      case 'australia':
-        setBackgroundImage('/assets/backgrounds/australia.jpg');
-        break;
-      default:
-        break;
     }
   };
 
@@ -122,7 +102,6 @@ function Home() {
     const [start, end] = dates;
     setStartDate(start);
     setEndDate(end);
-    console.log(startDate, endDate);
   };
 
   // Handle form search
@@ -180,7 +159,7 @@ function Home() {
                   onChange={handleSearchChange}
                   />
               </div>
-              <button className={styles.advanced_desktop}><img src="/assets/icons/filter.svg" alt="filter" /></button>
+              <button className={styles.advanced_desktop}><img src={filterIcon} alt="filter"/></button>
             </div>
             <div className={styles.date_and_filter}>
               <label htmlFor="dateFrom">Date from/to</label>
@@ -199,7 +178,7 @@ function Home() {
               </div>
             </div>
             <div className='button_wrap'>
-              <button onClick={handleFormSearch} className='cta'>Search</button>
+              <button onClick={handleFormSearch} className='cta cta_gradient'>Search</button>
             </div>
           </form>
         </div>

@@ -4,19 +4,26 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 1rem;
     height: 4rem;
     padding: 0 2.5rem;
     border-radius: 5rem;
-    background: linear-gradient(160deg, $secondary-light, $secondary-dark);
     color: $dark;
     font-family: 'Knewave', cursive;
     font-size: 1.2rem;
 }
 
+.active {
+    background: linear-gradient(180deg, $main-light, $main-dark);
+}
+
+.cta_gradient {
+    background: linear-gradient(160deg, $secondary-light, $secondary-dark);
+}
+
 .button_wrap {
     display: flex;
     align-items: flex-end;
+    margin-top: 1rem;
 }
 
 // media queries
