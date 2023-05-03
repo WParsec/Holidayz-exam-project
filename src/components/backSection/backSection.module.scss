@@ -1,0 +1,13 @@
+@import "../../scss/variables/index.scss";
+
+.back_section {
+    padding-top: 62px;
+    & button {
+        color: $background-main;
+        font-size: 1.5rem;
+
+        @media screen and (max-width: 768px) {
+            font-size: 1rem;
+        }
+    }
+}

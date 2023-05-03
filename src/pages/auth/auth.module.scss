@@ -5,22 +5,10 @@
     min-height: calc(100vh - 40px);
 }
 
-.back_section {
-    padding-top: 62px;
-    & button {
-        color: $background-main;
-        font-size: 1.5rem;
-
-        @media screen and (max-width: 768px) {
-            font-size: 1rem;
-        }
-    }
-}
-
 .form_wrapper {
     width: 100%;
     max-width: 420px;
-    margin: auto;
+    margin: 4rem auto 0;
 
     & fieldset {
         border-radius: 2.2rem;

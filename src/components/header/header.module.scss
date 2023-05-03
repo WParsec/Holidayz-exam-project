@@ -57,7 +57,8 @@ nav {
   z-index: 10;
   border-radius: 8px;
   padding: 1rem;
-  background: linear-gradient(180deg, $secondary-light, $secondary-dark);
+  // background: linear-gradient(180deg, $secondary-light, $secondary-dark);
+  background-color: $background-main;
 
   & div {
     display: flex;

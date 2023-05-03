@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
@@ -10,6 +9,9 @@ import informationIcon from "../../assets/icons/info.svg"
 
 // Schemas
 import { loginSchema, registerSchema } from '../../utils/validationSchema';
+
+// Components
+import BackSection from '../../components/backSection/index.jsx';
 
 // Hooks 
 import useRegister from '../../hooks/useRegister';
@@ -22,14 +24,9 @@ function Auth() {
     const [errorMessage, setErrorMessage] = useState('');
     const { register: registerUser, registerError } = useRegister();
     const { login: loginUser, loginError } = useLogin();
-    const navigate = useNavigate()
     const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(formType === 'login' ? loginSchema : registerSchema),
       });      
-
-    const handleBack = () => {
-        navigate(-1)
-    };
 
 // Handle the form type
 const handleFormType = (e) => {
@@ -74,11 +71,7 @@ useEffect(() => {
 
   return (
     <main className={styles.main} style={{ backgroundImage: `url(${backgroundImage})` }}>
-      <section className={styles.back_section}>
-        <div className='container'>
-            <button onClick={handleBack}>Back</button>
-        </div>
-      </section>
+      <BackSection />
       <section>
         <div className='container'>
             <div className={styles.form_wrapper}>

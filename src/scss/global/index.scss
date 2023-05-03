@@ -27,9 +27,15 @@ p {
   font-family: 'Montserrat', sans-serif;
 }
 
-body {
+html, body {
     background: $background-main;
     color: $background-main;
+    margin: 0;
+    padding: 0;
+}
+
+main {
+  height: 100%;
 }
 
 .container {
@@ -37,10 +43,6 @@ body {
   margin: auto;
   width: 100%;
   padding: 1rem;
-}
-
-section {
-  padding-bottom: 4rem;
 }
 
 button {
