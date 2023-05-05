@@ -12,11 +12,6 @@ function BackSectionVenue() {
 
   return (
     <section className={styles.back_section}>
-      <div className='container'>
-        <div className={styles.back_div}>
-            <HandleBack styles={styles}/>
-        </div>
-      </div>
     </section>
   )
 }

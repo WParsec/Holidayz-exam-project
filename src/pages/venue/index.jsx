@@ -7,12 +7,12 @@ import Slider from '../../components/venueSlider/index.jsx';
 
 // Import styles and assets
 import styles from './venue.module.scss';
+import star from '../../assets/icons/star.svg';
+import pin from '../../assets/icons/location_pin.svg';
+import placeholderAvatar from '../../assets/placeholder_avatar.jpg';
 
 // Import hooks
 import useApi from '../../hooks/useApi';
-
-// Import util
-import HandleBack from '../../utils/handleBack';
 
 
 function Venue() {
@@ -75,8 +75,62 @@ function Venue() {
               indexIndicator={styles.index_indicator}
             />
           )}
+          <div className={styles.owner_div}>
+            {owner ? (
+              <>
+                <div className={styles.avatar_div}>
+                  {owner.avatar !== null ? (
+                    <img src={owner.avatar} alt="avatar" className={styles.avatar} />
+                  ) : (
+                    <img src={placeholderAvatar} alt="avatar" className={styles.avatar} />
+                  )}
+                </div>
+                <div>
+                  <h4>{owner.name}</h4>
+                  <p className={styles.member_since}>Member since 2023</p>
+                </div>
+              </>
+            ) : (
+              <p>Loading owner...</p>
+            )}
+          </div>
         </div>
-        <div className={styles.right_side}></div>
+        <div className={styles.right_side}>
+          <div className={styles.right_side_top}>
+            <h1 className={styles.name}>{name}</h1>
+            <div className={styles.rating}>
+              <p className={styles.rating_text}>Rating: {rating} <img src={star} alt="star"/></p>
+            </div>
+          </div>
+          <div className={styles.description}>
+            <p>{description}</p>
+          </div>
+          <div className={styles.meta}>
+            {meta && Object.entries(meta).map(([key, value]) => {
+              if (value) {
+                return <h4 key={key}>{key}</h4>;
+              }
+              return null;
+            })}
+          </div>
+          <div className={styles.maxGuests}><h4>Max guests: {maxGuests}</h4></div>
+          <div className={styles.location}>
+            {location && (
+              <h4>{location.city}, {location.country} <img src={pin} alt=""/></h4>
+            )}
+          </div>
+          <div className={styles.price}>
+            <h4>Price: {price} NOK <span>/ night</span></h4>
+          </div>
+        </div>
+      </div>
+      <div className={styles.venue_bottom}>
+        <div className='container'>
+          <div className={styles.venue_bottom_flex}>
+            <div className={styles.bottom_left}></div>
+            <div className={styles.bottom_right}></div>
+          </div>
+        </div>
       </div>
     </main>
   );

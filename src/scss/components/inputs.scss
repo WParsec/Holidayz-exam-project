@@ -1,3 +1,4 @@
+@import "../variables/index.scss";
 
 input {
     width: 100%;
@@ -7,7 +8,7 @@ input {
     font-size: 1rem;
     outline: none;
     backdrop-filter: blur($blur);
-    background-color: rgba(245, 245, 245, 0.265);
+    background-color: rgba(174, 174, 174, 0.265);
     transition: all 400ms;
 
     &::placeholder { 

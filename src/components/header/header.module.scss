@@ -8,6 +8,7 @@
     z-index: 20;
     backdrop-filter: blur($blur);
     background-color: $blur-color;
+    padding: 0.5rem 0rem;
   }
 
 .container {
@@ -52,7 +53,7 @@ nav {
   max-width: 160px;
   height: fit-content;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  top: 4.1rem;
+  top: 2.5rem;
   right: 0; 
   z-index: 10;
   border-radius: 8px;
