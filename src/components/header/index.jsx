@@ -51,15 +51,21 @@ function Header() {
       <div className={`container ${styles.container}`}>
         <div className={styles.header_wrap}>
           <div className={styles.logo_div}>
-            <Link to='/'>
+            <Link to="/">
               <img src={logo} alt="Logo" className={styles.logo} />
             </Link>
           </div>
           <nav>
-            <Link to='/'>
+            <Link to="/">
               <img src={zoom} alt="Search" />
             </Link>
-            <button className="navIcon" onClick={(e) => { e.stopPropagation(); toggleNavBox(); }}>
+            <button
+              className="navIcon"
+              onClick={(e) => {
+                e.stopPropagation();
+                toggleNavBox();
+              }}
+            >
               <img src={profile} alt="User icon" />
             </button>
             {showNav && (
@@ -68,8 +74,8 @@ function Header() {
                   <button onClick={handleLogout}>Logout</button>
                 ) : (
                   <div>
-                    <Link to='/auth'>Login</Link>
-                    <Link to='/auth'>Register</Link>
+                    <Link to="/auth">Login</Link>
+                    <Link to="/auth">Register</Link>
                   </div>
                 )}
               </div>

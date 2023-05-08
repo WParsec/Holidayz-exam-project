@@ -1,4 +1,4 @@
-@import "../variables/index.scss";
+@import '../variables/index.scss';
 
 * {
   box-sizing: border-box;
@@ -7,7 +7,9 @@
   font-family: 'Montserrat', sans-serif;
 }
 
-a, li, ul {
+a,
+li,
+ul {
   text-decoration: none;
   list-style: none;
   color: $background-main;
@@ -15,7 +17,9 @@ a, li, ul {
   letter-spacing: 0.05rem;
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   font-family: 'Knewave', cursive;
   letter-spacing: 0.1rem;
   font-size: 3.5rem;
@@ -27,11 +31,12 @@ p {
   font-family: 'Montserrat', sans-serif;
 }
 
-html, body {
-    background: $background-main;
-    color: $background-main;
-    margin: 0;
-    padding: 0;
+html,
+body {
+  background: $background-main;
+  color: $background-main;
+  margin: 0;
+  padding: 0;
 }
 
 main {

@@ -18,66 +18,65 @@
     grid-template-columns: repeat(5, minmax(200px, 1fr));
   }
 }
-  
-  .venueCard {
+
+.venueCard {
+  width: 100%;
+  max-width: 350px;
+  background-color: transparent;
+  border-radius: 8px;
+}
+
+.imageWrapper {
+  width: 100%;
+  padding-bottom: 75%;
+  position: relative;
+  transition: all 400ms;
+
+  img {
     width: 100%;
-    max-width: 350px;
-    background-color: transparent;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    object-fit: cover;
     border-radius: 8px;
   }
-  
-  .imageWrapper {
-    width: 100%;
-    padding-bottom: 75%;
-    position: relative;
-    transition: all 400ms;
-  
-    img {
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      top: 0;
-      left: 0;
-      object-fit: cover;
-      border-radius: 8px;
-    }
 
-      &:hover {
-        cursor: pointer;
-        box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
-      }
+  &:hover {
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
   }
-  
-  .venueInfo {
-    padding: 0.5rem 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+}
 
-    & img {
-      height: 13px;
-    }
+.venueInfo {
+  padding: 0.5rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
-    & p {
-      width: max-content;
-    }
-
-    h5 {
-      font-size: 14px;
-      font-weight: bold;
-      color: $dark;
-      flex: 1 1 0;
-    }
+  & img {
+    height: 13px;
   }
-  
+
+  & p {
+    width: max-content;
+  }
+
+  h5 {
+    font-size: 14px;
+    font-weight: bold;
+    color: $dark;
+    flex: 1 1 0;
+  }
+}
+
 // Media queries
 
 @media (max-width: 480px) {
-    .grid {
-      grid-template-columns: 1fr;
-    }
-    .venueCard {
-      max-width: none;
-    }
+  .grid {
+    grid-template-columns: 1fr;
   }
-
+  .venueCard {
+    max-width: none;
+  }
+}

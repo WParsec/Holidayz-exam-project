@@ -7,10 +7,10 @@ import star from '../../assets/icons/star.svg';
 
 const Grid = forwardRef(({ venues }, ref) => {
   console.log(venues);
-  
+
   return (
     <section ref={ref}>
-      <div className='container'>
+      <div className="container">
         <div className={styles.grid}>
           {venues.map((venue) => {
             const { id, name, media, rating, price, location } = venue;
@@ -20,8 +20,12 @@ const Grid = forwardRef(({ venues }, ref) => {
                   <img src={media[0]} alt={`${name} thumbnail`} />
                 </div>
                 <div className={styles.venueInfo}>
-                  <h5>{location.city}, {location.country}</h5>
-                  <p>{rating} <img src={star} alt="star"/></p>
+                  <h5>
+                    {location.city}, {location.country}
+                  </h5>
+                  <p>
+                    {rating} <img src={star} alt="star" />
+                  </p>
                 </div>
                 <div>
                   <p className={styles.price}>${price}/night</p>
@@ -36,5 +40,3 @@ const Grid = forwardRef(({ venues }, ref) => {
 });
 
 export default Grid;
-
-  

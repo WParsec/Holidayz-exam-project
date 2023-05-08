@@ -1,4 +1,3 @@
-
 // Function returns the background image url based on the continent name
 import anywhereImage from '../assets/backgrounds/anywhere-2.jpg';
 import asiaImage from '../assets/backgrounds/asia.jpg';

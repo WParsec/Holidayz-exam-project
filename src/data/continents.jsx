@@ -1,12 +1,11 @@
-
 const continents = [
-    'ANYWHERE',
-    'ASIA',
-    'EUROPE',
-    'AFRICA',
-    'SOUTH AMERICA',
-    'NORTH AMERICA',
-    'AUSTRALIA',
+  'ANYWHERE',
+  'ASIA',
+  'EUROPE',
+  'AFRICA',
+  'SOUTH AMERICA',
+  'NORTH AMERICA',
+  'AUSTRALIA',
 ];
 
-  export default continents;
+export default continents;

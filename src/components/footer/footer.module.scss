@@ -1,14 +1,14 @@
 @import '../../scss/variables';
 
 .footer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 40px;
-    background-color: $dark;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  background-color: $dark;
 
-    & p {
-        color: $background-main;
-        font-size: 14px;
-    }
+  & p {
+    color: $background-main;
+    font-size: 14px;
+  }
 }

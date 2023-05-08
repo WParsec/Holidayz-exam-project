@@ -1,6 +1,9 @@
 // hooks/useRegister.js
 import { useState } from 'react';
 
+// Import url
+import { registerUrl } from '../common/common';
+
 const useRegister = () => {
   const options = (data) => ({
     method: 'POST',
@@ -16,7 +19,7 @@ const useRegister = () => {
     setLoading(true);
 
     try {
-      const response = await fetch('https://api.noroff.dev/api/v1/holidaze/auth/register', options(data));
+      const response = await fetch(registerUrl, options(data));
       const results = await response.json();
       console.log(results);
 
@@ -26,7 +29,6 @@ const useRegister = () => {
       }
 
       return { success: true, results };
-
     } catch (error) {
       return { success: false, error: error.message };
     } finally {
@@ -38,5 +40,3 @@ const useRegister = () => {
 };
 
 export default useRegister;
-
-

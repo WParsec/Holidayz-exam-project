@@ -1,17 +1,17 @@
-@import "../../scss/variables/index.scss";
+@import '../../scss/variables/index.scss';
 
 .back_section {
-    padding-top: 46.88px;
-    background-color: $main-dark;
-    // background-image: url("../../assets/backgrounds/leaf.jpg");
-    & button {
-        color: $background-main;
-        font-size: 1.5rem;
-    }
+  padding-top: 46.88px;
+  background-color: $dark;
+  // background-image: url("../../assets/backgrounds/leaf.jpg");
+  & button {
+    color: $background-main;
+    font-size: 1.5rem;
+  }
 }
 
 @media screen and (max-width: 768px) {
-    .back_section {
-        display: none;
-        }
+  .back_section {
+    display: none;
+  }
 }

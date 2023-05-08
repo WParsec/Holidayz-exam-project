@@ -1,5 +1,5 @@
 {
-    "cSpell.words": [
-        "Holidayz"
-    ]
+  "cSpell.words": ["Holidayz", "stylesheet"],
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true
 }
