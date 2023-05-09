@@ -15,6 +15,10 @@ import placeholderAvatar from '../../assets/placeholder_avatar.jpg';
 
 // Import hooks
 import useApi from '../../hooks/useApi';
+import useSubmitBooking from '../../hooks/useSubmitBooking';
+
+// Import utils
+import DisplayError from '../../utils/displayErrors';
 
 // Date picker
 import DatePicker from 'react-datepicker';
@@ -22,6 +26,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 function Venue() {
   const { id } = useParams();
+  // API
   const {
     data: venue,
     error,
@@ -29,17 +34,28 @@ function Venue() {
   } = useApi(
     `https://api.noroff.dev/api/v1/holidaze/venues/${id}?_bookings=true&_owner=true`
   );
+  const {
+    submitBooking,
+    loading: bookingLoading,
+    error: bookingError,
+  } = useSubmitBooking();
+  // Slider
   const [currentIndex, setCurrentIndex] = useState(0);
   // Date picker
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const today = new Date();
-  // Is the venue booked
+  // Booking
   const [isBooked, setIsBooked] = useState(false);
-
   // Number of nights and total price
   const [nights, setNights] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
+  // Guest amount
+  const [guests, setGuests] = useState(1);
+  // UI error
+  const [uiError, setUiError] = useState(false);
+  // Success
+  const [success, setSuccess] = useState(false);
 
   if (loading) {
     return <p>Loading...</p>;
@@ -121,6 +137,32 @@ function Venue() {
     } else {
       setNights(0);
       setTotalPrice(0);
+    }
+  };
+
+  // Handle submit
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!startDate || !endDate) {
+      setUiError('Please select a date range.');
+    }
+
+    if (!isBooked && startDate && endDate) {
+      const result = await submitBooking(
+        id,
+        startDate.toISOString(),
+        endDate.toISOString(),
+        guests
+      );
+
+      if (!result.success) {
+        return;
+      }
+
+      // Handle successful booking
+      setUiError(null);
+      setSuccess(true);
     }
   };
 
@@ -217,7 +259,7 @@ function Venue() {
             </div>
             <div className={styles.bottom_right}>
               <div className={styles.booking_form_div}>
-                <form>
+                <form onSubmit={handleSubmit}>
                   <div className={styles.date_and_guests_flex}>
                     <div className={styles.date_div}>
                       <label htmlFor="dateFrom">Date from/to</label>
@@ -236,11 +278,15 @@ function Venue() {
                     </div>
                     <div className={styles.guest_amount_div}>
                       <label htmlFor="guestAmount">Number of guests</label>
-                      <select name="guestAmount" id="guestAmount">
+                      <select
+                        name="guestAmount"
+                        id="guestAmount"
+                        onChange={(e) => setGuests(e.target.value)}
+                      >
                         {Array.from({ length: maxGuests }, (_, i) => i + 1).map(
                           (guest) => (
                             <option key={guest} value={guest}>
-                              {guest} guest
+                              {guest} guest(s)
                             </option>
                           )
                         )}
@@ -248,11 +294,13 @@ function Venue() {
                     </div>
                   </div>
                   <div className={styles.booking_error_div}>
-                    {isBooked && (
-                      <p className={styles.is_booked}>
-                        One or more of the selected days are already booked
-                      </p>
-                    )}
+                    <DisplayError
+                      isBooked={isBooked}
+                      bookingError={bookingError}
+                      uiError={uiError}
+                      success={success}
+                      styles={styles}
+                    />
                   </div>
                   <div className={styles.summary}>
                     <p>Night(s): {nights}</p>
@@ -262,11 +310,13 @@ function Venue() {
                   </div>
                   <div className={styles.button_div}>
                     <button
+                      disabled={isBooked}
+                      type="submit"
                       className={
                         isBooked ? `cta cta_disabled` : `cta cta_gradient`
                       }
                     >
-                      Book Now
+                      {bookingLoading ? 'Booking...' : 'Book Now'}
                     </button>
                   </div>
                 </form>
