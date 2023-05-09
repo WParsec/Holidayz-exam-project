@@ -20,6 +20,10 @@
   background: linear-gradient(160deg, $secondary-light, $secondary-dark);
 }
 
+.cta_disabled {
+  background: linear-gradient(160deg, #f6c12085, #f38a2774);
+}
+
 .button_wrap {
   display: flex;
   align-items: flex-end;

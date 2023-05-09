@@ -26,7 +26,7 @@ const VenueCalendar = ({ bookings }) => {
   }, [bookings]);
 
   return (
-    <div>
+    <div className={styles.outer_div}>
       <Calendar
         tileClassName={({ date }) =>
           dates.some(

@@ -5,6 +5,10 @@
 }
 
 .booked {
-  background-color: rgb(220, 220, 220) !important;
+  background-color: #bf95782b !important;
   color: rgba(0, 0, 0, 0.228) !important;
+
+  &:hover {
+    cursor: unset !important;
+  }
 }

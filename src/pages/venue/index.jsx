@@ -34,6 +34,8 @@ function Venue() {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const today = new Date();
+  // Is the venue booked
+  const [isBooked, setIsBooked] = useState(false);
 
   // Number of nights and total price
   const [nights, setNights] = useState(0);
@@ -58,7 +60,6 @@ function Venue() {
     price,
     rating,
   } = venue;
-  console.log(venue);
 
   // GPT function to handle scroll index
   const handleScroll = (e) => {
@@ -88,6 +89,28 @@ function Venue() {
     const [start, end] = dates;
     setStartDate(start);
     setEndDate(end);
+
+    // Check if selected dates or dates in between are already booked
+    const bookedDates = [];
+    venue.bookings.forEach((booking) => {
+      const start = new Date(booking.dateFrom);
+      const end = new Date(booking.dateTo);
+
+      // Calculate the difference between start and end dates in days
+      const diffInDays = (end - start) / (1000 * 60 * 60 * 24);
+
+      for (let i = 0; i <= diffInDays; i++) {
+        const current = new Date(start);
+        current.setDate(current.getDate() + i);
+        bookedDates.push(current);
+      }
+    });
+
+    // Check if selected dates are already booked
+    const booked = bookedDates.some(
+      (bookedDate) => bookedDate >= start && bookedDate <= end
+    );
+    setIsBooked(booked);
 
     if (start && end) {
       const nightsDifference = Math.ceil(
@@ -224,6 +247,13 @@ function Venue() {
                       </select>
                     </div>
                   </div>
+                  <div className={styles.booking_error_div}>
+                    {isBooked && (
+                      <p className={styles.is_booked}>
+                        One or more of the selected days are already booked
+                      </p>
+                    )}
+                  </div>
                   <div className={styles.summary}>
                     <p>Night(s): {nights}</p>
                     <p>
@@ -231,7 +261,13 @@ function Venue() {
                     </p>
                   </div>
                   <div className={styles.button_div}>
-                    <button className={`cta cta_gradient`}>Book Now</button>
+                    <button
+                      className={
+                        isBooked ? `cta cta_disabled` : `cta cta_gradient`
+                      }
+                    >
+                      Book Now
+                    </button>
                   </div>
                 </form>
               </div>
