@@ -8,6 +8,8 @@ import Home from './pages/home';
 // Pages
 import Venue from './pages/venue';
 import Auth from './pages/auth';
+import Profile from './pages/profile';
+import Create from './pages/create';
 
 import './App.scss';
 
@@ -19,6 +21,8 @@ function App() {
           <Route index element={<Home />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/venue/:id" element={<Venue />} />
+          <Route path="/profiles/:name" element={<Profile />} />
+          <Route path="/venues/create" element={<Create />} />
         </Route>
       </Routes>
     </BrowserRouter>

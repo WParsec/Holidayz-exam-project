@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-function useApi(url) {
+function useApi(url, accessToken = null) {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -10,8 +10,18 @@ function useApi(url) {
       try {
         setIsLoading(true);
         setIsError(false);
-        const fetchedData = await fetch(url);
-        const json = await fetchedData.json();
+
+        const headers = accessToken
+          ? { Authorization: `Bearer ${accessToken}` }
+          : {};
+
+        const response = await fetch(url, { headers });
+        const json = await response.json();
+
+        if (!response.ok) {
+          throw new Error(json.message || 'Something went wrong');
+        }
+
         setData(json);
       } catch (error) {
         console.log(error);
@@ -22,7 +32,7 @@ function useApi(url) {
     }
 
     getData();
-  }, [url]);
+  }, [url, accessToken]);
 
   return { data, isLoading, isError };
 }

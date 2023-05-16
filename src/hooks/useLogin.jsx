@@ -32,6 +32,8 @@ const useLogin = () => {
 
       // Save token to local storage and redirect to home page
       localStorage.setItem('accessToken', results.accessToken);
+      localStorage.setItem('name', results.name);
+      localStorage.setItem('venueManager', results.venueManager);
       window.location.href = '/';
     } catch (error) {
       setError(error.message);

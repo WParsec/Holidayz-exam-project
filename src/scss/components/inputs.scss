@@ -21,6 +21,13 @@ input {
   }
 }
 
+textarea {
+  @extend input;
+  min-height: 10rem;
+  border-radius: 1rem;
+  padding: 1rem;
+}
+
 .auth_input {
   height: 3rem;
   background-color: $background-main;

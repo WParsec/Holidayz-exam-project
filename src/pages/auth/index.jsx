@@ -17,6 +17,9 @@ import BackSection from '../../components/backSection/index.jsx';
 import useRegister from '../../hooks/useRegister';
 import useLogin from '../../hooks/useLogin';
 
+// Utils
+import SEO from '../../utils/SEO.jsx';
+
 function Auth() {
   const [formType, setFormType] = useState('login');
   const [formTitle, setFormTitle] = useState('Login');
@@ -65,6 +68,9 @@ function Auth() {
 
     if (result.success) {
       handleLogin(data);
+    } else {
+      setIsError(true);
+      setErrorMessage(result.error);
     }
   };
 
@@ -73,6 +79,12 @@ function Auth() {
       className={styles.main}
       style={{ backgroundImage: `url(${backgroundImage})` }}
     >
+      <SEO
+        title={`${formTitle} | Holidayz`}
+        description={
+          'Join or log into YourAppName, a global community of travelers and hosts. Discover unique homes and experiences around the world, or rent out your own.'
+        }
+      />
       <BackSection />
       <section>
         <div className="container">
@@ -168,7 +180,11 @@ function Auth() {
                         <input type="checkbox" {...register('venueManager')} />I
                         am a Venue Manager
                       </label>
-                      <button>
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault();
+                        }}
+                      >
                         <img src={informationIcon} alt="information icon" />
                       </button>
                     </div>

@@ -6,7 +6,7 @@ import styles from './backSection.module.scss';
 // Import util
 import HandleBack from '../../utils/handleBack';
 
-function BackSection({ backgroundImage }) {
+function BackSection({ backgroundImage, text }) {
   // Set the background style
   const backgroundStyle = backgroundImage
     ? {
@@ -19,7 +19,7 @@ function BackSection({ backgroundImage }) {
   return (
     <section className={styles.back_section} style={backgroundStyle}>
       <div className="container">
-        <HandleBack />
+        <HandleBack text={text} />
       </div>
     </section>
   );

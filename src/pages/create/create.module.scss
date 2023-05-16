@@ -1,0 +1,68 @@
+@import '../../scss/variables/index.scss';
+
+.main {
+  min-height: calc(100dvh - 40px);
+  min-height: calc(100vh - 40px);
+}
+
+.progression_flex {
+  display: flex;
+  width: 100%;
+  max-width: 800px;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.progression_bar {
+  flex: 1 1 auto;
+  backdrop-filter: blur($blur);
+  background-color: rgba(245, 245, 245, 0.24);
+  border-radius: 1rem;
+  padding: 0.3rem 0;
+
+  &:hover {
+    cursor: pointer;
+    background-color: rgba(245, 245, 245, 0.4);
+  }
+}
+
+.filled {
+  background-color: $main-light;
+
+  &:hover {
+    background-color: $main-light;
+  }
+}
+
+.h1 {
+  margin: 4rem 0;
+  font-size: 3rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+  gap: 1rem;
+
+  & label {
+    padding-left: 1rem;
+  }
+
+  & input {
+    margin-top: 0.2rem;
+    color: $background-main;
+    height: 3rem;
+    resize: none;
+
+    &::placeholder {
+      color: $background-main;
+      opacity: 0.4;
+    }
+  }
+
+  & textarea {
+    @extend input;
+    min-height: 10rem;
+  }
+}

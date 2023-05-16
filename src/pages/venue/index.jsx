@@ -16,9 +16,11 @@ import placeholderAvatar from '../../assets/placeholder_avatar.jpg';
 // Import hooks
 import useApi from '../../hooks/useApi';
 import useSubmitBooking from '../../hooks/useSubmitBooking';
+import useAuthStatus from '../../hooks/useAuthStatus';
 
 // Import utils
 import DisplayError from '../../utils/displayErrors';
+import SEO from '../../utils/SEO.jsx';
 
 // Date picker
 import DatePicker from 'react-datepicker';
@@ -39,6 +41,8 @@ function Venue() {
     loading: bookingLoading,
     error: bookingError,
   } = useSubmitBooking();
+  // Auth
+  const { isLoggedIn } = useAuthStatus();
   // Slider
   const [currentIndex, setCurrentIndex] = useState(0);
   // Date picker
@@ -56,6 +60,8 @@ function Venue() {
   const [uiError, setUiError] = useState(false);
   // Success
   const [success, setSuccess] = useState(false);
+  // Booking success
+  const [bookingSuccess, setBookingSuccess] = useState(false);
 
   if (loading) {
     return <p>Loading...</p>;
@@ -105,6 +111,7 @@ function Venue() {
     const [start, end] = dates;
     setStartDate(start);
     setEndDate(end);
+    setBookingSuccess(false);
 
     // Check if selected dates or dates in between are already booked
     const bookedDates = [];
@@ -144,6 +151,11 @@ function Venue() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!isLoggedIn) {
+      setUiError('You need to be logged in to book a venue.');
+      return;
+    }
+
     if (!startDate || !endDate) {
       setUiError('Please select a date range.');
     }
@@ -163,11 +175,19 @@ function Venue() {
       // Handle successful booking
       setUiError(null);
       setSuccess(true);
+      setBookingSuccess(true);
     }
+  };
+
+  // Handle guest change
+  const handleGuestChange = (e) => {
+    setGuests(e.target.value);
+    setBookingSuccess(false);
   };
 
   return (
     <main>
+      <SEO title={`${name} | Holidayz`} description={description} />
       <BackSectionVenue />
       <div className={styles.top_flex}>
         <div className={styles.left_side}>
@@ -281,7 +301,7 @@ function Venue() {
                       <select
                         name="guestAmount"
                         id="guestAmount"
-                        onChange={(e) => setGuests(e.target.value)}
+                        onChange={handleGuestChange}
                       >
                         {Array.from({ length: maxGuests }, (_, i) => i + 1).map(
                           (guest) => (
@@ -310,10 +330,12 @@ function Venue() {
                   </div>
                   <div className={styles.button_div}>
                     <button
-                      disabled={isBooked}
+                      disabled={isBooked || bookingSuccess}
                       type="submit"
                       className={
-                        isBooked ? `cta cta_disabled` : `cta cta_gradient`
+                        isBooked || bookingSuccess
+                          ? `cta cta_disabled`
+                          : `cta cta_gradient`
                       }
                     >
                       {bookingLoading ? 'Booking...' : 'Book Now'}

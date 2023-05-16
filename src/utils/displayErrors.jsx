@@ -1,6 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
+// Import hooks
+import useLocalStorage from '../hooks/useLocalStorage';
 
 const DisplayError = ({ isBooked, bookingError, uiError, success, styles }) => {
+  const { name } = useLocalStorage();
+
   if (isBooked) {
     return (
       <p className={styles.is_booked}>
@@ -14,7 +20,8 @@ const DisplayError = ({ isBooked, bookingError, uiError, success, styles }) => {
   } else if (success) {
     return (
       <p className={styles.success}>
-        Booking successful! <a href="/">View Bookings</a>
+        Booking successful!{' '}
+        <Link to={`/profiles/${name}`}>View your bookings</Link>
       </p>
     );
   }

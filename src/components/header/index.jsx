@@ -9,10 +9,20 @@ import logo from '../../assets/logo.svg';
 import profile from '../../assets/icons/profile.svg';
 import zoom from '../../assets/icons/zoom.svg';
 
+// Import hooks
+import useAuthStatus from '../../hooks/useAuthStatus';
+import useLocalStorage from '../../hooks/useLocalStorage';
+
 function Header() {
   const [showNav, setShowNav] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { isLoggedIn, logout } = useAuthStatus();
   const navigate = useNavigate();
+  const { name, isVenueManager } = useLocalStorage();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+  };
 
   const toggleNavBox = () => {
     setShowNav(!showNav);
@@ -31,20 +41,6 @@ function Header() {
       window.removeEventListener('click', handleClickOutside);
     };
   }, []);
-
-  useEffect(() => {
-    if (localStorage.getItem('accessToken')) {
-      setIsLoggedIn(true);
-    } else {
-      setIsLoggedIn(false);
-    }
-  }, []);
-
-  const handleLogout = () => {
-    localStorage.removeItem('accessToken');
-    setIsLoggedIn(false);
-    navigate('/'); // Redirect to home page after logout
-  };
 
   return (
     <header className={styles.header}>
@@ -71,11 +67,18 @@ function Header() {
             {showNav && (
               <div className={styles.navBox}>
                 {isLoggedIn ? (
-                  <button onClick={handleLogout}>Logout</button>
+                  <div>
+                    <Link to={`/profiles/${name}`}>Profile</Link>
+                    {isVenueManager === 'true' && (
+                      <Link className="cta" to="/venues/create">
+                        Create Venue
+                      </Link>
+                    )}
+                    <button onClick={handleLogout}>Logout</button>
+                  </div>
                 ) : (
                   <div>
-                    <Link to="/auth">Login</Link>
-                    <Link to="/auth">Register</Link>
+                    <Link to="/auth">Login/Register</Link>
                   </div>
                 )}
               </div>

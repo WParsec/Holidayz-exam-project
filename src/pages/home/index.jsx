@@ -14,13 +14,14 @@ import anywhere from '../../assets/backgrounds/anywhere-2.jpg';
 
 // Import utils
 import getBackgroundImageUrl from '../../utils/getBackgroundImage';
+import SEO from '../../utils/SEO.jsx';
 
 // Import url's¨
 import { getAllVenuesUrl } from '../../common/common';
 
 // Date picker
 import DatePicker from 'react-datepicker';
-import { isAfter, isBefore } from 'date-fns';
+import { isAfter, isBefore, isSameDay } from 'date-fns';
 import 'react-datepicker/dist/react-datepicker.css';
 import CustomDateRangeInput from '../../components/customInput';
 
@@ -144,7 +145,11 @@ function Home() {
               (isAfter(startDate, bookingStartDate) &&
                 isBefore(startDate, bookingEndDate)) ||
               (isAfter(endDate, bookingStartDate) &&
-                isBefore(endDate, bookingEndDate))
+                isBefore(endDate, bookingEndDate)) ||
+              isSameDay(startDate, bookingStartDate) ||
+              isSameDay(startDate, bookingEndDate) ||
+              isSameDay(endDate, bookingStartDate) ||
+              isSameDay(endDate, bookingEndDate)
             );
           });
 
@@ -164,6 +169,10 @@ function Home() {
 
   return (
     <main>
+      <SEO
+        title="Home | Holidayz"
+        description={'Browse countless venues around the world'}
+      />
       <Hero backgroundImage={backgroundImage}>
         <div className={styles.search_filter_wrap}>
           <form className={styles.search_form} onSubmit={handleFormSearch}>
@@ -179,7 +188,6 @@ function Home() {
                   onChange={handleSearchChange}
                 />
               </div>
-              {/* <button className={styles.advanced_desktop}><img src={filterIcon} alt="filter"/></button> */}
             </div>
             <div className={styles.date_and_filter}>
               <label htmlFor="dateFrom">Date from/to</label>
@@ -194,7 +202,6 @@ function Home() {
                   minDate={today}
                   customInput={<CustomDateRangeInput customStyles={styles} />}
                 />
-                {/* <button className={styles.advanced_desktop}><img src="/assets/icons/filter.svg" alt="filter" /></button> */}
               </div>
             </div>
             <div className="button_wrap">
