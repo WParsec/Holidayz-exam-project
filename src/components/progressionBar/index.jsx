@@ -1,23 +1,15 @@
 import React from 'react';
 
-function ProgressionBar({ progression, styles, setFormProgression }) {
-  // Assume you have 3 progression bars
-  const bars = [1, 2, 3];
-  console.log(progression);
+function ProgressionBar({ progression, styles }) {
+  const totalBars = 4;
+  const progressBarPercentage = (progression / totalBars) * 100;
 
   return (
-    <div className={styles.progression_flex}>
-      {bars.map((_, index) => (
-        <div
-          key={index}
-          className={`${styles.progression_bar} ${
-            index < progression ? styles.filled : ''
-          }`}
-          onClick={() => {
-            setFormProgression(index + 1);
-          }}
-        />
-      ))}
+    <div className={styles.progression_bar}>
+      <div
+        className={styles.progress_fill}
+        style={{ width: `${progressBarPercentage}%` }}
+      />
     </div>
   );
 }

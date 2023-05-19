@@ -28,6 +28,13 @@ textarea {
   padding: 1rem;
 }
 
+select {
+  @extend input;
+  height: 4rem;
+  color: $background-main;
+  padding: 0 2rem;
+}
+
 .auth_input {
   height: 3rem;
   background-color: $background-main;
