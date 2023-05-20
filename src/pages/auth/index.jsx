@@ -14,8 +14,11 @@ import { loginSchema, registerSchema } from '../../utils/validationSchema';
 import BackSection from '../../components/backSection/index.jsx';
 
 // Hooks
-import useRegister from '../../hooks/useRegister';
+import usePOST from '../../hooks/usePOST';
 import useLogin from '../../hooks/useLogin';
+
+// Url
+import { registerUrl } from '../../common/common';
 
 // Utils
 import SEO from '../../utils/SEO.jsx';
@@ -25,7 +28,7 @@ function Auth() {
   const [formTitle, setFormTitle] = useState('Login');
   const [isError, setIsError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const { register: registerUser, registerError } = useRegister();
+  const { postRequest: registerUser, registerError } = usePOST();
   const { login: loginUser, loginError } = useLogin();
   const {
     register,
@@ -64,7 +67,7 @@ function Auth() {
 
   const handleRegister = async (data) => {
     console.log('Register data:', data);
-    const result = await registerUser(data);
+    const result = await registerUser(registerUrl, data);
 
     if (result.success) {
       handleLogin(data);

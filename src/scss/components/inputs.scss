@@ -33,6 +33,10 @@ select {
   height: 4rem;
   color: $background-main;
   padding: 0 2rem;
+
+  & option {
+    padding: 0rem 1rem;
+  }
 }
 
 .auth_input {

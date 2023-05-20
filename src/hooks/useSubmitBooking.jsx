@@ -29,9 +29,6 @@ const useSubmitBooking = () => {
     try {
       const response = await fetch(bookingsUrl, options);
       const results = await response.json();
-      console.log(results);
-      console.log(guests);
-      console.log(typeof guests);
 
       if (!response.ok) {
         const error = results.errors[0].message;

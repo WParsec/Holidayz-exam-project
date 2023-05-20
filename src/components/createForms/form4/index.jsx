@@ -1,4 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+
+// Import URL
+import { createVenueUrl } from '../../../common/common';
+
+// Import hook
+import usePOST from '../../../hooks/usePOST';
+import useUserData from '../../../hooks/useLocalStorage';
 
 function Form4({
   styles,
@@ -13,6 +21,37 @@ function Form4({
   handlePrevious,
   capacity,
 }) {
+  const [isError, setIsError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [isSuccess, setIsSuccess] = useState(false);
+  const { postRequest: createVenue } = usePOST();
+  const { accessToken } = useUserData();
+  const data = {
+    name,
+    description,
+    media,
+    price,
+    maxGuests: capacity,
+    location: {
+      address,
+      city,
+      country,
+      continent,
+    },
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const results = await createVenue(createVenueUrl, data, accessToken);
+
+    if (results.success) {
+      setIsSuccess(true);
+    } else {
+      setIsError(true);
+      setErrorMessage(results.error);
+    }
+  };
+
   return (
     <div>
       <h1 className={styles.h1}>Verify your data</h1>
@@ -32,12 +71,29 @@ function Form4({
               </p>
             </div>
           </div>
-          <div className={styles.next_div}>
-            <button className="cta cta_gradient">Publish</button>
-          </div>
-          <button onClick={handlePrevious} className={styles.previous}>
-            ← Previous
-          </button>
+          {isSuccess && (
+            <div className={styles.success}>
+              <p>Your venue has been published!</p>
+              <Link to="/">See venues</Link>
+            </div>
+          )}
+          {isSuccess === false && isError === false && (
+            <div className={styles.next_div}>
+              <button onClick={handleSubmit} className={`cta cta_gradient`}>
+                Publish
+              </button>
+            </div>
+          )}
+          {isSuccess === false && isError === false && (
+            <button onClick={handlePrevious} className={styles.previous}>
+              ← Previous
+            </button>
+          )}
+          {isError && (
+            <div className={styles.error}>
+              <p>{errorMessage}</p>
+            </div>
+          )}
         </div>
         <div className={styles.preview_div}>
           {media &&

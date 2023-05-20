@@ -11,7 +11,7 @@ import VenueCalendar from '../../components/calendar/index.jsx';
 import styles from './venue.module.scss';
 import star from '../../assets/icons/star.svg';
 import pin from '../../assets/icons/location_pin.svg';
-import placeholderAvatar from '../../assets/placeholder_avatar.jpg';
+import userPlaceholder from '../../assets/userPlaceholder.jpg';
 
 // Import hooks
 import useApi from '../../hooks/useApi';
@@ -112,6 +112,7 @@ function Venue() {
     setStartDate(start);
     setEndDate(end);
     setBookingSuccess(false);
+    console.log(owner);
 
     // Check if selected dates or dates in between are already booked
     const bookedDates = [];
@@ -209,19 +210,11 @@ function Venue() {
             {owner ? (
               <>
                 <div className={styles.avatar_div}>
-                  {owner.avatar !== null ? (
-                    <img
-                      src={owner.avatar}
-                      alt="avatar"
-                      className={styles.avatar}
-                    />
-                  ) : (
-                    <img
-                      src={placeholderAvatar}
-                      alt="avatar"
-                      className={styles.avatar}
-                    />
-                  )}
+                  <img
+                    src={owner.avatar ? owner.avatar : userPlaceholder}
+                    alt="Avatar"
+                    className={styles.avatar}
+                  />
                 </div>
                 <div>
                   <h4>{owner.name}</h4>
@@ -273,13 +266,18 @@ function Venue() {
       </div>
       <div className={styles.venue_bottom}>
         <div className="container">
+          <div className={styles.keyboard_shortcut_div}>
+            <a className={styles.keyboard_shortcut} href="#form">
+              Skip to form
+            </a>
+          </div>
           <div className={styles.venue_bottom_flex}>
             <div className={styles.bottom_left}>
               {venue.bookings && <VenueCalendar bookings={venue.bookings} />}
             </div>
             <div className={styles.bottom_right}>
               <div className={styles.booking_form_div}>
-                <form onSubmit={handleSubmit}>
+                <form id="form" onSubmit={handleSubmit}>
                   <div className={styles.date_and_guests_flex}>
                     <div className={styles.date_div}>
                       <label htmlFor="dateFrom">Date from/to</label>

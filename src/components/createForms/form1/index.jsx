@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -9,12 +9,18 @@ const schema = yup.object().shape({
     .required('Name is required')
     .min(3, 'Name must have minimum 3 letters')
     .max(100)
-    .matches(/^[a-zA-Z0-9 ]*$/, 'Special characters are not allowed'),
+    .matches(
+      /^[a-zA-Z0-9 .,!?-]*$/,
+      'Unusual special characters are not allowed'
+    ),
   description: yup
     .string()
     .required()
     .max(1000)
-    .matches(/^[a-zA-Z0-9 ]*$/, 'Special characters are not allowed'),
+    .matches(
+      /^[a-zA-Z0-9 .,!?-]*$/,
+      'Unusual special characters are not allowed'
+    ),
   price: yup
     .number()
     .typeError('Price must be a number')

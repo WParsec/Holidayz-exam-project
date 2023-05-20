@@ -287,6 +287,22 @@
   }
 }
 
+.keyboard_shortcut_div {
+  position: relative;
+}
+
+.keyboard_shortcut {
+  position: absolute;
+  color: $dark;
+  padding-bottom: 1rem;
+  top: -2rem;
+  transform: translateX(-100rem);
+
+  &:focus {
+    transform: translateX(0);
+  }
+}
+
 @media screen and (min-width: 768px) {
   .back {
     // display: none;

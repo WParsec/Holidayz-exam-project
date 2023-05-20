@@ -1,31 +1,30 @@
-// hooks/useRegister.js
 import { useState } from 'react';
 
-// Import url
-import { registerUrl } from '../common/common';
-
-const useRegister = () => {
-  const options = (data) => ({
+const usePOST = () => {
+  const options = (data, accessToken) => ({
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
     },
     body: JSON.stringify(data),
   });
 
   const [loading, setLoading] = useState(false);
 
-  const register = async (data) => {
+  const postRequest = async (url, data, accessToken = null) => {
     setLoading(true);
 
     try {
-      const response = await fetch(registerUrl, options(data));
+      const response = await fetch(url, options(data, accessToken));
       const results = await response.json();
       console.log(results);
 
       if (!response.ok) {
-        const error = results.errors[0].message;
-        throw new Error(error || 'Something went wrong');
+        const error =
+          (results.errors && results.errors[0].message) ||
+          'Something went wrong';
+        throw new Error(error);
       }
 
       return { success: true, results };
@@ -36,7 +35,7 @@ const useRegister = () => {
     }
   };
 
-  return { loading, register };
+  return { loading, postRequest };
 };
 
-export default useRegister;
+export default usePOST;
