@@ -15,27 +15,34 @@ import pen from '../../assets/icons/pen.svg';
 
 // Import hooks
 import useApi from '../../hooks/useApi';
-import useLocalStorage from '../../hooks/useLocalStorage';
+import useUserData from '../../hooks/useLocalStorage';
 import useAvatar from '../../hooks/useAvatar';
 
 // Import utils
 import SEO from '../../utils/SEO.jsx';
 
 function Profile() {
-  const { name, accessToken } = useLocalStorage();
-  const { data, isLoading, isError } = useApi(profileUrl + name, accessToken);
-  const { avatar, name: profileName, venueManager } = data;
+  const { name, accessToken } = useUserData();
+  const url = name ? profileUrl + name : null; // Ran into async trouble. Url will now be null if name is not defined and thus the useAPI hook will not run until name is defined.
+  const { data, isError, isLoading, errorMessage } = useApi(url, accessToken);
   const [avatarUrl, setAvatarUrl] = useState(null);
+  const [profileName, setProfileName] = useState('');
+  const [venueManager, setVenueManager] = useState(false);
   const [isDisplayingForm, setIsDisplayingForm] = useState(false);
   const {
     updateAvatar,
     isError: isAvatarError,
-    errorMessage,
+    errorMessage: avatarErrorMessage,
   } = useAvatar(name, accessToken);
 
   useEffect(() => {
-    setAvatarUrl(avatar);
-  }, [avatar]);
+    if (data) {
+      const { avatar, name, venueManager } = data;
+      setAvatarUrl(avatar);
+      setProfileName(name);
+      setVenueManager(venueManager);
+    }
+  }, [data]);
 
   const handleEditAvatar = () => {
     setIsDisplayingForm(!isDisplayingForm);
@@ -48,6 +55,34 @@ function Profile() {
       setIsDisplayingForm(false);
     }
   };
+
+  if (isLoading) {
+    return (
+      <main
+        className={styles.main}
+        style={{ backgroundImage: `url(${backgroundImage})` }}
+      >
+        <div className="container">
+          <div className={styles.loading}>Loading...</div>
+        </div>
+      </main>
+    );
+  }
+
+  if (isError) {
+    return (
+      <main
+        className={styles.main}
+        style={{ backgroundImage: `url(${backgroundImage})` }}
+      >
+        <div className="container">
+          <div className={styles.failed}>
+            Something went wrong: {errorMessage}
+          </div>
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main
@@ -115,7 +150,7 @@ function Profile() {
               </div>
               <div className={styles.error}>
                 {isAvatarError && isDisplayingForm ? (
-                  <p>Error: {errorMessage}</p>
+                  <p>Error: {avatarErrorMessage}</p>
                 ) : (
                   ''
                 )}

@@ -4,12 +4,15 @@ function useApi(url, accessToken = null) {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     async function getData() {
+      if (!url) return;
       try {
         setIsLoading(true);
         setIsError(false);
+        setErrorMessage('');
 
         const headers = accessToken
           ? { Authorization: `Bearer ${accessToken}` }
@@ -19,13 +22,15 @@ function useApi(url, accessToken = null) {
         const json = await response.json();
 
         if (!response.ok) {
-          throw new Error(json.message || 'Something went wrong');
+          throw new Error(
+            `HTTP error! status: ${response.status}, status text: ${json.errors[0].message}`
+          );
         }
 
         setData(json);
       } catch (error) {
-        console.log(error);
         setIsError(true);
+        setErrorMessage(error.message);
       } finally {
         setIsLoading(false);
       }
@@ -34,7 +39,7 @@ function useApi(url, accessToken = null) {
     getData();
   }, [url, accessToken]);
 
-  return { data, isLoading, isError };
+  return { data, isLoading, isError, errorMessage };
 }
 
 export default useApi;

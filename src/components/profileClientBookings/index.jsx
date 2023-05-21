@@ -11,7 +11,7 @@ function ProfileBookings({ url, accessToken }) {
     data: bookings,
     isLoading,
     isError,
-  } = useApi(url + '/bookings' + '?_venue=true', accessToken);
+  } = useApi(url + '/bookings?_venue=true', accessToken);
   console.log(bookings);
 
   // Build two arrays from the bookings array: One for bookings in the future and one for bookings in the past

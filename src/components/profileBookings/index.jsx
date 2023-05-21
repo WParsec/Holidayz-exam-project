@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 // Import styles and assets
 import styles from './profileBookings.module.scss';
@@ -11,23 +11,47 @@ function ProfileBookings({ url, accessToken }) {
     data: bookings,
     isLoading,
     isError,
-  } = useApi(url + '/bookings' + '?_venue=true', accessToken);
-  console.log(bookings);
+    errorMessage,
+  } = useApi(url + '/bookings?_venue=true', accessToken);
 
   // Build two arrays from the bookings array: One for bookings in the future and one for bookings in the past
-  const upcomingBookings = [];
-  const previousBookings = [];
+  const [upcomingBookings, setUpcomingBookings] = useState([]);
+  const [previousBookings, setPreviousBookings] = useState([]);
 
-  bookings.forEach((booking) => {
-    const today = new Date();
-    const bookingDate = new Date(booking.dateFrom);
+  useEffect(() => {
+    const upcoming = [];
+    const previous = [];
 
-    if (bookingDate > today) {
-      upcomingBookings.push(booking);
-    } else {
-      previousBookings.push(booking);
+    if (bookings && Array.isArray(bookings)) {
+      bookings.forEach((booking) => {
+        const today = new Date();
+        const bookingDate = new Date(booking.dateFrom);
+
+        if (bookingDate > today) {
+          upcoming.push(booking);
+        } else {
+          previous.push(booking);
+        }
+      });
+
+      setUpcomingBookings(upcoming);
+      setPreviousBookings(previous);
     }
-  });
+  }, [bookings]);
+
+  if (isLoading)
+    return (
+      <div className="container">
+        <h2>Loading...</h2>
+      </div>
+    );
+
+  if (isError)
+    return (
+      <div className="container">
+        <p>{errorMessage}</p>
+      </div>
+    );
 
   return (
     <div className="container">
