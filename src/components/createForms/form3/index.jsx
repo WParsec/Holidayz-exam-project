@@ -74,11 +74,11 @@ function Form3({
             <select
               id="continent"
               className={styles.input}
+              required
               {...register('continent')}
             >
               <option value="">Select...</option>
               <option value="Africa">Africa</option>
-              <option value="Antarctica">Antarctica</option>
               <option value="Asia">Asia</option>
               <option value="Australia">Australia</option>
               <option value="Europe">Europe</option>
@@ -99,6 +99,7 @@ function Form3({
               id="country"
               type="text"
               className={styles.input}
+              required
               {...register('country')}
             />
             {errors && errors.country && (
@@ -115,6 +116,7 @@ function Form3({
               id="city"
               type="text"
               className={styles.input}
+              required
               {...register('city')}
             />
             {errors && errors.city && (
@@ -131,6 +133,7 @@ function Form3({
               id="address"
               type="text"
               className={styles.input}
+              required
               {...register('address')}
             />
             {errors && errors.address && (

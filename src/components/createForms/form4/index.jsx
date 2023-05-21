@@ -92,6 +92,9 @@ function Form4({
           {isError && (
             <div className={styles.error}>
               <p>{errorMessage}</p>
+              <button onClick={handlePrevious} className={styles.previous}>
+                ← Back
+              </button>
             </div>
           )}
         </div>

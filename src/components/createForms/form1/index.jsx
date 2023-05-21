@@ -33,6 +33,7 @@ const schema = yup.object().shape({
     .required()
     .positive()
     .integer()
+    .max(100)
     .min(1, 'Capacity must be greater than 0'),
 });
 
@@ -83,6 +84,7 @@ function Form1({
             id="name"
             type="text"
             className={styles.input}
+            required
             {...register('name')}
           />
           {errors && errors.name && (
@@ -99,6 +101,8 @@ function Form1({
               id="price"
               type="number"
               className={styles.input}
+              required
+              min={1}
               {...register('price')}
             />
             {errors && errors.price && (
@@ -112,7 +116,9 @@ function Form1({
             <input
               id="capacity"
               type="number"
+              max={100}
               className={styles.input}
+              required
               {...register('capacity')}
             />
             {errors && errors.capacity && (
@@ -130,6 +136,7 @@ function Form1({
             id="description"
             className={styles.input}
             maxLength="1000"
+            required
             {...register('description')}
           />
           {errors && errors.description && (
