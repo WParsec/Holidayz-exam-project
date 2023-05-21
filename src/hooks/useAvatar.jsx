@@ -40,7 +40,7 @@ const useAvatar = (name, accessToken) => {
     setIsLoading(false);
   };
 
-  return { updateAvatar, isLoading, isError, errorMessage };
+  return { updateAvatar, isLoading, isError, errorMessage, response };
 };
 
 export default useAvatar;
