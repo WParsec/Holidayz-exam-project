@@ -1,0 +1,40 @@
+@import '../../scss/variables/index.scss';
+
+.modal_div {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  backdrop-filter: blur($blur);
+  background-color: $blur-color;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.modal_content {
+  width: fit-content;
+  margin-top: 20rem;
+  height: fit-content;
+  background-color: $background-main;
+  border-radius: 1rem;
+  padding: 2rem;
+
+  & > * {
+    color: $dark;
+    text-align: center;
+  }
+
+  & h3 {
+    padding: 2rem 0;
+  }
+}
+
+.button_flex {
+  display: flex;
+  gap: 10%;
+  justify-content: center;
+  padding: 2rem 0;
+}

@@ -6,6 +6,7 @@ import BackSectionVenue from '../../components/backSectionVenue/index.jsx';
 import Slider from '../../components/venueSlider/index.jsx';
 import CustomDateRangeInput from '../../components/customInput/index.jsx';
 import VenueCalendar from '../../components/calendar/index.jsx';
+import VenueModal from '../../components/venueModal/index.jsx';
 
 // Import styles and assets
 import styles from './venue.module.scss';
@@ -17,6 +18,7 @@ import userPlaceholder from '../../assets/userPlaceholder.jpg';
 import useApi from '../../hooks/useApi';
 import useSubmitBooking from '../../hooks/useSubmitBooking';
 import useAuthStatus from '../../hooks/useAuthStatus';
+import useUserData from '../../hooks/useLocalStorage.jsx';
 
 // Import utils
 import DisplayError from '../../utils/displayErrors';
@@ -36,6 +38,7 @@ function Venue() {
   } = useApi(
     `https://api.noroff.dev/api/v1/holidaze/venues/${id}?_bookings=true&_owner=true`
   );
+  const { name: userName } = useUserData();
   const {
     submitBooking,
     loading: bookingLoading,
@@ -62,6 +65,13 @@ function Venue() {
   const [success, setSuccess] = useState(false);
   // Booking success
   const [bookingSuccess, setBookingSuccess] = useState(false);
+  // Is Owner of venue
+  const isUserOwner = venue && venue.owner && venue.owner.name === userName;
+  // Show edit menu
+  const [showEditMenu, setShowEditMenu] = useState(false);
+  // Modal
+  const [displayModal, setDisplayModal] = useState(false);
+  const [modalTitle, setModalTitle] = useState('');
 
   if (loading) {
     return <p>Loading...</p>;
@@ -186,10 +196,30 @@ function Venue() {
     setBookingSuccess(false);
   };
 
+  // Handle edit
+  const handleEditClick = () => {
+    setShowEditMenu(!showEditMenu);
+  };
+
+  // Handle delete
+  const handleDeleteClick = async () => {
+    console.log('delete');
+    setDisplayModal(true);
+    setModalTitle('Delete venue');
+  };
+
   return (
     <main>
       <SEO title={`${name} | Holidayz`} description={description} />
       <BackSectionVenue />
+      {displayModal && (
+        <VenueModal
+          title={modalTitle}
+          setDisplayModal={setDisplayModal}
+          handleEditClick={handleEditClick}
+          id={id}
+        />
+      )}
       <div className={styles.top_flex}>
         <div className={styles.left_side}>
           {media && (
@@ -206,25 +236,38 @@ function Venue() {
               sliderScrollDiv={styles.slider_scroll_div}
             />
           )}
-          <div className={styles.owner_div}>
+          <div>
             {owner ? (
-              <>
-                <div className={styles.avatar_div}>
-                  <img
-                    src={owner.avatar ? owner.avatar : userPlaceholder}
-                    alt="Avatar"
-                    className={styles.avatar}
-                  />
+              <div className={styles.owner_div}>
+                <div className={styles.avatar_and_name}>
+                  <div className={styles.avatar_div}>
+                    <img
+                      src={owner.avatar ? owner.avatar : userPlaceholder}
+                      alt="Avatar"
+                      className={styles.avatar}
+                    />
+                  </div>
+                  <div>
+                    <h4>{owner.name}</h4>
+                    <p className={styles.member_since}>Member since 2023</p>
+                  </div>
                 </div>
-                <div>
-                  <h4>{owner.name}</h4>
-                  <p className={styles.member_since}>Member since 2023</p>
-                </div>
-              </>
+                {isUserOwner && (
+                  <button onClick={handleEditClick} className="edit_button">
+                    •••
+                  </button>
+                )}
+              </div>
             ) : (
               <p>Loading owner...</p>
             )}
           </div>
+          {showEditMenu && (
+            <div className={styles.edit_menu}>
+              <button>Edit Venue</button>
+              <button onClick={handleDeleteClick}>Delete Venue</button>
+            </div>
+          )}
         </div>
         <div className={styles.right_side}>
           <div className={styles.right_side_top}>

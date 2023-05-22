@@ -5,6 +5,10 @@
   flex-direction: column;
 }
 
+.left_side {
+  position: relative;
+}
+
 // Slider
 .slider_top_level {
   position: relative;
@@ -94,9 +98,16 @@
   padding: 1rem;
   display: flex;
   align-items: center;
-  gap: 1rem;
+  justify-content: space-between;
   border-bottom: 1px solid #2525256c;
+}
+
+.avatar_and_name {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
   color: $dark;
+  flex-wrap: wrap;
 }
 
 .member_since {
@@ -303,10 +314,32 @@
   }
 }
 
-@media screen and (min-width: 768px) {
-  .back {
-    // display: none;
+.edit_menu {
+  position: absolute;
+  bottom: 5rem;
+  right: 5rem;
+  width: 100%;
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 2rem 2rem;
+  backdrop-filter: blur($blur);
+  background-color: $blur-color;
+  border-radius: 1rem;
+  border-bottom-right-radius: 0;
+
+  & button {
+    font-size: 1rem;
+    color: $background-main;
   }
+
+  & :nth-child(2) {
+    color: $error;
+  }
+}
+
+@media screen and (min-width: 768px) {
   .top_flex {
     max-width: 1400px;
     margin: auto;
@@ -343,8 +376,4 @@
   .date_and_guests_flex {
     flex-direction: row;
   }
-
-  // .book_button {
-  //   width: 50%;
-  // }
 }
