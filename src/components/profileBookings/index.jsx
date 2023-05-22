@@ -14,6 +14,10 @@ function ProfileBookings({ url, accessToken }) {
     errorMessage,
   } = useApi(url + '/bookings?_venue=true', accessToken);
 
+  // Drop down bar states
+  const [showPrevious, setShowPrevious] = useState(false);
+  const [showUpcoming, setShowUpcoming] = useState(false);
+
   // Build two arrays from the bookings array: One for bookings in the future and one for bookings in the past
   const [upcomingBookings, setUpcomingBookings] = useState([]);
   const [previousBookings, setPreviousBookings] = useState([]);
@@ -56,9 +60,16 @@ function ProfileBookings({ url, accessToken }) {
   return (
     <div className="container">
       <div className={styles.venues_wrap}>
-        <div className={styles.left}>
-          <h4 className={styles.h4}>Your previous bookings</h4>
-          <div className={styles.bookings}>
+        <div
+          className={styles.left}
+          onClick={() => setShowPrevious(!showPrevious)}
+        >
+          <h4 className={styles.h4}>
+            Your previous bookings <span>View</span>
+          </h4>
+          <div
+            className={`${styles.bookings} ${showPrevious ? styles.show : ''}`}
+          >
             {bookings && bookings.length > 0
               ? previousBookings.map((booking) => (
                   <div className={styles.booking} key={booking.id}>
@@ -79,9 +90,16 @@ function ProfileBookings({ url, accessToken }) {
               : ''}
           </div>
         </div>
-        <div className={styles.right}>
-          <h4 className={styles.h4}>Your upcoming bookings</h4>
-          <div className={styles.bookings}>
+        <div
+          className={styles.right}
+          onClick={() => setShowUpcoming(!showUpcoming)}
+        >
+          <h4 className={styles.h4}>
+            Your upcoming bookings <span>View</span>
+          </h4>
+          <div
+            className={`${styles.bookings} ${showUpcoming ? styles.show : ''}`}
+          >
             {bookings && bookings.length > 0
               ? upcomingBookings.map((booking) => (
                   <div className={styles.booking} key={booking.id}>

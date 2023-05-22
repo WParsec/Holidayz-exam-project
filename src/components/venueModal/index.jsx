@@ -29,7 +29,7 @@ function VenueModal({ title, setDisplayModal, handleEditClick, id }) {
     <div className={styles.modal_div}>
       <div className={styles.modal_content}>
         <h2>{title}</h2>
-        <h3>Are you sure you want to delete the venue?</h3>
+        <p>Are you sure you want to delete the venue?</p>
         <div className={styles.button_flex}>
           <button onClick={handleDeleteVenue} className="danger_button">
             Delete

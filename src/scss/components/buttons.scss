@@ -32,11 +32,12 @@
 }
 
 .edit_button {
-  padding: 0.5rem 1rem;
   font-size: 1rem;
   letter-spacing: 0.25rem;
   border: 1px solid $dark;
   border-radius: 2rem;
+  width: 3.5rem;
+  height: 2.5rem;
 }
 
 .danger_button {

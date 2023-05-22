@@ -67,14 +67,14 @@ function Venue() {
   const [bookingSuccess, setBookingSuccess] = useState(false);
   // Is Owner of venue
   const isUserOwner = venue && venue.owner && venue.owner.name === userName;
-  // Show edit menu
+  // Edit menu
   const [showEditMenu, setShowEditMenu] = useState(false);
   // Modal
   const [displayModal, setDisplayModal] = useState(false);
   const [modalTitle, setModalTitle] = useState('');
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <div className="container">Loading...</div>;
   }
   if (error) {
     return <p>Something went wrong: {error}</p>;
@@ -197,7 +197,8 @@ function Venue() {
   };
 
   // Handle edit
-  const handleEditClick = () => {
+  const handleEditClick = (event) => {
+    event.stopPropagation();
     setShowEditMenu(!showEditMenu);
   };
 
@@ -254,7 +255,7 @@ function Venue() {
                 </div>
                 {isUserOwner && (
                   <button onClick={handleEditClick} className="edit_button">
-                    •••
+                    {showEditMenu ? ' X ' : '•••'}
                   </button>
                 )}
               </div>
