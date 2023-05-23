@@ -10,6 +10,7 @@ import Venue from './pages/venue';
 import Auth from './pages/auth';
 import Profile from './pages/profile';
 import Create from './pages/create';
+import Update from './pages/update';
 import PageNotFound from './pages/PageNotFound';
 
 import './App.scss';
@@ -24,6 +25,7 @@ function App() {
           <Route path="/venue/:id" element={<Venue />} />
           <Route path="/profiles/:name" element={<Profile />} />
           <Route path="/venues/create" element={<Create />} />
+          <Route path="/venues/update/:id" element={<Update />} />
           <Route path="*" element={<PageNotFound />} />
         </Route>
       </Routes>

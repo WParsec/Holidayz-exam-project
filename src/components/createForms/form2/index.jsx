@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import * as yup from 'yup';
 
 // Schema
@@ -14,9 +14,14 @@ function Form2({
   setMedia,
   setFormProgression,
   handlePrevious,
+  title,
 }) {
   const [oneMedia, setOneMedia] = useState('');
   const [mediaError, setMediaError] = useState(null);
+
+  useEffect(() => {
+    setMedia(media);
+  }, [media, setMedia]);
 
   const handleAddMedia = async (e) => {
     e.preventDefault();
@@ -48,7 +53,7 @@ function Form2({
 
   return (
     <div>
-      <h1 className={styles.h1}>Upload images</h1>
+      <h1 className={styles.h1}>{title}</h1>
       <div className={styles.content_flex}>
         <div className={styles.content_wrap}>
           <form className={styles.form} onSubmit={(e) => handleSubmit(e)}>

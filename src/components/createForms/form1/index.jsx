@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -48,11 +48,13 @@ function Form1({
   capacity,
   setCapacity,
   setFormProgression,
+  title,
 }) {
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
@@ -62,6 +64,13 @@ function Form1({
       capacity: capacity,
     },
   });
+
+  useEffect(() => {
+    setValue('name', name);
+    setValue('description', description);
+    setValue('price', price);
+    setValue('capacity', capacity);
+  }, [name, description, price, capacity, setValue]);
 
   const onSubmit = (data) => {
     setName(data.name);
@@ -73,7 +82,7 @@ function Form1({
 
   return (
     <div className={styles.content_wrap}>
-      <h1 className={styles.h1}>Register Your Venue</h1>
+      <h1 className={styles.h1}>{title}</h1>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
         <div className={styles.inputGroup}>
           <label htmlFor="name" className={styles.label}>

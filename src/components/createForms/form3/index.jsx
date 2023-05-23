@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -38,11 +38,13 @@ function Form3({
   formProgression,
   setFormProgression,
   handlePrevious,
+  title,
 }) {
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
@@ -52,6 +54,13 @@ function Form3({
       address: address,
     },
   });
+
+  useEffect(() => {
+    setValue('continent', continent);
+    setValue('country', country);
+    setValue('city', city);
+    setValue('address', address);
+  }, [continent, country, city, address, setValue]);
 
   const onSubmit = (data) => {
     console.log(data);
@@ -64,7 +73,7 @@ function Form3({
 
   return (
     <div>
-      <h1 className={styles.h1}>Add location</h1>
+      <h1 className={styles.h1}>{title}</h1>
       <div className={styles.content_wrap}>
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
           <div className={styles.inputGroup}>

@@ -334,6 +334,10 @@
     color: $background-main;
   }
 
+  & a {
+    text-align: center;
+  }
+
   & :nth-child(2) {
     color: $secondary-dark;
   }

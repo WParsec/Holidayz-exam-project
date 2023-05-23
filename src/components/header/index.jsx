@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import styles from './header.module.scss';
 
 // Import assets
-import logo from '../../assets/logo.svg';
+import logo from '../../assets/logopng.png';
 import profile from '../../assets/icons/profile.svg';
 import zoom from '../../assets/icons/zoom.svg';
 

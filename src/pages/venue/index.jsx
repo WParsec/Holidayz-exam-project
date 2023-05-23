@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 // import components
 import BackSectionVenue from '../../components/backSectionVenue/index.jsx';
@@ -197,8 +197,7 @@ function Venue() {
   };
 
   // Handle edit
-  const handleEditClick = (event) => {
-    event.stopPropagation();
+  const handleEditClick = () => {
     setShowEditMenu(!showEditMenu);
   };
 
@@ -265,7 +264,7 @@ function Venue() {
           </div>
           {showEditMenu && (
             <div className={styles.edit_menu}>
-              <button>Edit Venue</button>
+              <Link to={`/venues/update/${id}`}>Update</Link>
               <button onClick={handleDeleteClick}>Delete Venue</button>
             </div>
           )}
