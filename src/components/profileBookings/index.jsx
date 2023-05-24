@@ -63,8 +63,14 @@ function ProfileBookings({ url, accessToken }) {
     <div className="container">
       <div className={styles.venues_wrap}>
         <div
+          tabIndex="0"
           className={styles.left}
           onClick={() => setShowPrevious(!showPrevious)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              setShowPrevious(!showPrevious);
+            }
+          }}
         >
           <h4 className={styles.h4}>
             Your previous bookings <span>View</span>
@@ -93,8 +99,14 @@ function ProfileBookings({ url, accessToken }) {
           </div>
         </div>
         <div
+          tabIndex="0"
           className={styles.right}
           onClick={() => setShowUpcoming(!showUpcoming)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              setShowUpcoming(!showUpcoming);
+            }
+          }}
         >
           <h4 className={styles.h4}>
             Your upcoming bookings <span>View</span>
