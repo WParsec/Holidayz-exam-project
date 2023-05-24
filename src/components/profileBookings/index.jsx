@@ -14,6 +14,8 @@ function ProfileBookings({ url, accessToken }) {
     errorMessage,
   } = useApi(url + '/bookings?_venue=true', accessToken);
 
+  console.log(bookings);
+
   // Drop down bar states
   const [showPrevious, setShowPrevious] = useState(false);
   const [showUpcoming, setShowUpcoming] = useState(false);

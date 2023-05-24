@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 // Import components
 import BackSection from '../../components/backSection';
@@ -23,11 +24,12 @@ import SEO from '../../utils/SEO.jsx';
 
 function Profile() {
   const { name, accessToken } = useUserData();
-  const url = name ? profileUrl + name : null; // Ran into async trouble. Url will now be null if name is not defined and thus the useAPI hook will not run until name is defined.
+  const url = name ? profileUrl + name + '?_venues=true&_bookings=true' : null; // Ran into async trouble. Url will now be null if name is not defined and thus the useAPI hook will not run until name is defined.
   const { data, isError, isLoading, errorMessage } = useApi(url, accessToken);
   const [avatarUrl, setAvatarUrl] = useState(null);
   const [profileName, setProfileName] = useState('');
   const [venueManager, setVenueManager] = useState(false);
+  const [venues, setVenues] = useState([]);
   const [isDisplayingForm, setIsDisplayingForm] = useState(false);
   const {
     updateAvatar,
@@ -37,12 +39,16 @@ function Profile() {
 
   useEffect(() => {
     if (data) {
-      const { avatar, name, venueManager } = data;
+      const { avatar, name, venueManager, venues: yourVenues } = data;
       setAvatarUrl(avatar);
       setProfileName(name);
       setVenueManager(venueManager);
+      setVenues(yourVenues);
     }
   }, [data]);
+
+  console.log('DATA', data);
+  console.log('VENUES', venues);
 
   const handleEditAvatar = () => {
     setIsDisplayingForm(!isDisplayingForm);
@@ -87,7 +93,10 @@ function Profile() {
   return (
     <main
       className={styles.main}
-      style={{ backgroundImage: `url(${backgroundImage})` }}
+      style={{
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundAttachment: 'fixed',
+      }}
     >
       <SEO
         title="Profile"
@@ -155,6 +164,28 @@ function Profile() {
                   ''
                 )}
               </div>
+            </div>
+          </div>
+          <div className={styles.venues_wrap}>
+            <h3>My Venues</h3>
+            <div className={styles.your_venues_grid}>
+              {venues && venues.length > 0
+                ? venues.map((venue) => {
+                    const { id, name, media } = venue;
+                    return (
+                      <div className={styles.venue} key={id}>
+                        <Link to={`/venue/${id}`}>
+                          <div className={styles.venue_image}>
+                            <img src={media[0]} alt={name} />
+                          </div>
+                          <div className={styles.venue_name}>
+                            <h4>{name}</h4>
+                          </div>
+                        </Link>
+                      </div>
+                    );
+                  })
+                : ''}
             </div>
           </div>
         </div>
