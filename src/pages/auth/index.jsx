@@ -118,6 +118,7 @@ function Auth() {
                     onSubmit={handleSubmit(handleLogin)}
                   >
                     <input
+                      data-testid="login-email-input"
                       className="auth_input"
                       type="email"
                       placeholder="Email"
@@ -126,13 +127,18 @@ function Auth() {
                     {errors.email && <p>{errors.email.message}</p>}
 
                     <input
+                      data-testid="login-password-input"
                       className="auth_input"
                       type="password"
                       placeholder="Password"
                       {...register('password')}
                     />
                     {errors.password && <p>{errors.password.message}</p>}
-                    <button className="cta cta_gradient" type="submit">
+                    <button
+                      className="cta cta_gradient"
+                      type="submit"
+                      data-testId="login-submit-button"
+                    >
                       Login
                     </button>
                   </form>

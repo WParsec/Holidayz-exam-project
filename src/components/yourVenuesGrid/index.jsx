@@ -18,30 +18,34 @@ function YourVenuesGrid({ venues, styles }) {
       <div className={styles.venues_wrap}>
         <h2>My Venues</h2>
         <div className={styles.your_venues_grid}>
-          {venues && venues.length > 0
-            ? venues.map((venue) => {
-                const { id, name, media } = venue;
-                return (
-                  <div className={styles.venue} key={id}>
-                    <div>
-                      <div
-                        className={styles.venue_image}
-                        onClick={() => setSelectedId(id)}
-                      >
-                        <img src={media[0]} alt={name} />
-                      </div>
-                      <div className={styles.venue_name}>
-                        <h4>{name}</h4>
-                      </div>
+          {venues && venues.length > 0 ? (
+            venues.map((venue) => {
+              const { id, name, media } = venue;
+              return (
+                <div className={styles.venue} key={id}>
+                  <div>
+                    <div
+                      className={styles.venue_image}
+                      onClick={() => setSelectedId(id)}
+                    >
+                      <img src={media[0]} alt={name} />
                     </div>
-                    <Link to={`/venue/${id}`}>Go to Venue</Link>
+                    <div className={styles.venue_name}>
+                      <h4>{name}</h4>
+                    </div>
                   </div>
-                );
-              })
-            : ''}
+                  <Link to={`/venue/${id}`}>Go to Venue</Link>
+                </div>
+              );
+            })
+          ) : (
+            <p>You don't have any venues yet.</p>
+          )}
         </div>
       </div>
-      {selectedId && <YourReservations selectedId={selectedId} />}
+      {selectedId && venues && venues.length > 0 && (
+        <YourReservations selectedId={selectedId} />
+      )}
     </div>
   );
 }

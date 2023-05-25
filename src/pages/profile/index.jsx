@@ -163,7 +163,7 @@ function Profile() {
               </div>
             </div>
           </div>
-          <YourVenuesGrid venues={venues} styles={styles} />
+          {venueManager && <YourVenuesGrid venues={venues} styles={styles} />}
         </div>
       </section>
       <section>

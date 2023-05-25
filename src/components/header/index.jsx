@@ -61,6 +61,7 @@ function Header() {
                 e.stopPropagation();
                 toggleNavBox();
               }}
+              data-testid="profile-button"
             >
               <img src={profile} alt="User icon" />
             </button>
@@ -74,7 +75,9 @@ function Header() {
                         Create Venue
                       </Link>
                     )}
-                    <button onClick={handleLogout}>Logout</button>
+                    <button onClick={handleLogout} data-testid="logout-button">
+                      Logout
+                    </button>
                   </div>
                 ) : (
                   <div>

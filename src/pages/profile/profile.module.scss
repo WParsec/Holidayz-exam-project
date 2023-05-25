@@ -123,6 +123,10 @@
   padding: 1rem 0rem 4rem;
   grid-template-columns: repeat(3, minmax(60px, 1fr));
 
+  & p {
+    color: $background-main;
+  }
+
   @media (min-width: 768px) {
     grid-template-columns: repeat(3, minmax(60px, 1fr));
   }
