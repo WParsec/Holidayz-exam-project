@@ -1,6 +1,6 @@
 @import '../../scss/variables/index.scss';
 
-.venues_wrap {
+.bookings_wrap {
   display: flex;
   flex-direction: row;
   gap: 2rem;
@@ -106,7 +106,7 @@
 
 // Media queries
 @media screen and (max-width: 768px) {
-  .venues_wrap {
+  .bookings_wrap {
     flex-direction: column-reverse;
   }
   .right {

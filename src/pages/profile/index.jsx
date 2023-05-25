@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 
 // Import components
 import BackSection from '../../components/backSection';
 import ProfileBookings from '../../components/profileBookings';
+import YourVenuesGrid from '../../components/yourVenuesGrid';
 
 // Import url
 import { profileUrl } from '../../common/common';
@@ -46,9 +46,6 @@ function Profile() {
       setVenues(yourVenues);
     }
   }, [data]);
-
-  console.log('DATA', data);
-  console.log('VENUES', venues);
 
   const handleEditAvatar = () => {
     setIsDisplayingForm(!isDisplayingForm);
@@ -166,28 +163,7 @@ function Profile() {
               </div>
             </div>
           </div>
-          <div className={styles.venues_wrap}>
-            <h3>My Venues</h3>
-            <div className={styles.your_venues_grid}>
-              {venues && venues.length > 0
-                ? venues.map((venue) => {
-                    const { id, name, media } = venue;
-                    return (
-                      <div className={styles.venue} key={id}>
-                        <Link to={`/venue/${id}`}>
-                          <div className={styles.venue_image}>
-                            <img src={media[0]} alt={name} />
-                          </div>
-                          <div className={styles.venue_name}>
-                            <h4>{name}</h4>
-                          </div>
-                        </Link>
-                      </div>
-                    );
-                  })
-                : ''}
-            </div>
-          </div>
+          <YourVenuesGrid venues={venues} styles={styles} />
         </div>
       </section>
       <section>

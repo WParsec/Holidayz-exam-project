@@ -1,5 +1,6 @@
 // Fetch url's
 
+const baseUrl = 'https://api.noroff.dev/api/v1/holidaze';
 const loginUrl = 'https://api.noroff.dev/api/v1/holidaze/auth/login';
 const registerUrl = 'https://api.noroff.dev/api/v1/holidaze/auth/register';
 const getAllVenuesUrl =
@@ -15,4 +16,5 @@ export {
   bookingsUrl,
   profileUrl,
   createVenueUrl,
+  baseUrl,
 };

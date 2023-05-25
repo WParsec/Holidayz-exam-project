@@ -142,6 +142,12 @@
   background-color: transparent;
   border-radius: 8px;
   text-align: center;
+
+  & a {
+    font-family: 'Montserrat';
+    font-size: 14px;
+    color: $main-light;
+  }
 }
 
 .venue_image {
@@ -149,6 +155,12 @@
   display: flex;
   width: 100%;
   margin: 0 0 1rem;
+  transition: all 300ms ease-in-out;
+
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+  }
 
   & img {
     height: 100%;

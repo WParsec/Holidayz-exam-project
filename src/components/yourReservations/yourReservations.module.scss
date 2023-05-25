@@ -1,0 +1,27 @@
+@import '../../scss/variables/index.scss';
+
+.reservations_wrap {
+  padding: 1rem;
+  margin: 1rem 0 2rem;
+  backdrop-filter: blur($blur);
+  background-color: $blur-color;
+  border-radius: 2rem;
+}
+
+.reservation {
+  display: flex;
+  padding: 1rem 0;
+  align-items: center;
+  justify-content: space-between;
+
+  & * {
+    color: $background-main;
+  }
+
+  & div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+  }
+}
