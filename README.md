@@ -4,6 +4,8 @@
 
 Welcome to the Holidayz Exam Project. This project is the final exam for a 2-year Front-end Study at Noroff School of Technology and Digital Media.
 
+Live site: [Holidayz](https://cerulean-melba-ba6cf3.netlify.app/)
+
 ## Description
 
 This is an accommodation booking website named Holidayz. The application consists of two parts: a customer-facing side where users can book holidays at a venue, and an admin-facing side where users can register and manage venues and bookings at those venues.
