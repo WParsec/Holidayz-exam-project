@@ -1,34 +1,80 @@
 # Holidayz Exam Project
 
-My final exam for my 2 years of Front-end Study at Noroff School of Technology and Digital Media.
+Welcome to the Holidayz Exam Project. This project is the final exam for a 2-year Front-end Study at Noroff School of Technology and Digital Media.
 
-## Project Brief
+## Description
 
-A newly launched accommodation booking site called Holidaze has approached you to develop a brand new front end for their application. While they have a list of required features, the design and user experience have not been specified. Working with the official API documentation, plan, design and build a modern front-end accommodation booking application.
-
-There are two aspects to this brief: the customer-facing side of the website where users can book holidays at a venue, and the admin-facing side of the website where users can register and manage venues and bookings at those venues.
-
-### User Stories
-
-The following user stories were required:
-
-- A user may view a list of Venues - [x]
-- A user may search for a specific Venue - [x]
-- A user may view a specific Venue page by id - [x]
-- A user may view a calendar with available dates for a Venue - [x]
-- A user with a stud.noroff.no email may register as a customer - [x]
-- A registered customer may create a booking at a Venue - [x]
-- A registered customer may view their upcoming bookings - [x]
-- A user with a stud.noroff.no email may register as a Venue manager - [x]
-- A registered Venue manager may create a Venue - [x]
-- A registered Venue manager may update a Venue they manage - [x]
-- A registered Venue manager may delete a Venue they manage - [x]
-- A registered Venue manager may view bookings for a Venue they manage - [x]
-- A registered user may log in - [x]
-- A registered user may update their avatar - [x]
-- A registered user may log out - [x]
+This is an accommodation booking website named Holidayz. The application consists of two parts: a customer-facing side where users can book holidays at a venue, and an admin-facing side where users can register and manage venues and bookings at those venues.
 
 The project was bootstrapped with Create React App.
+
+## User Stories
+
+The following user stories were required and are fulfilled:
+
+- A user may view a list of Venues [x]
+- A user may search for a specific Venue [x]
+- A user may view a specific Venue page by id [x]
+- A user may view a calendar with available dates for a Venue [x]
+- A user with a stud.noroff.no email may register as a customer [x]
+- A registered customer may create a booking at a Venue [x]
+- A registered customer may view their upcoming bookings [x]
+- A user with a stud.noroff.no email may register as a Venue manager [x]
+- A registered Venue manager may create a Venue [x]
+- A registered Venue manager may update a Venue they manage [x]
+- A registered Venue manager may delete a Venue they manage [x]
+- A registered Venue manager may view bookings for a Venue they manage [x]
+- A registered user may log in [x]
+- A registered user may update their avatar [x]
+- A registered user may log out [x]
+
+## Installation and Setup Instructions
+
+Clone this repository to your local machine using the following command:
+
+```
+git clone https://github.com/WParsec/holidayz-exam-project.git
+```
+
+### Installation:
+
+To install the project dependencies, navigate to the project directory, and run:
+
+```
+npm install
+```
+
+### Start server
+
+To start the server, run:
+
+```
+npm start
+```
+
+This should start the server at http://localhost:3000/.
+
+## Project Dependencies
+
+This project uses the following dependencies:
+
+- React.js
+- react-calendar
+- react-date-range
+- react-datepicker
+- react-helmet
+- react-hook-form
+- react-router-dom
+- sass
+- yup
+- date-fns
+
+## Development Dependencies
+
+The development dependencies are as follows:
+
+- Cypress (for testing)
+- Prettier (for code formatting) Formats on Save
 
 ## Testing E2E CYPRESS
 
@@ -49,30 +95,9 @@ The tests should now be running in your terminal and displaying successful 2 out
 
 ## Gitignored files and folders
 
-#### dependencies
+The following files and folders are git ignored:
 
-/node_modules
-/.pnp
-.pnp.js
-
-#### testing
-
-/coverage
-/cypress/screenshots
-/cypress/videos
-
-#### production
-
-/build
-
-#### misc
-
-.DS_Store
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
-npm-debug.log
-yarn-debug.log
-yarn-error.log
+- Node modules and dependencies (/node_modules, /.pnp, .pnp.js)
+- Test results (/coverage, /cypress/screenshots, /cypress/videos)
+- Production build files (/build)
+- Miscellaneous system files (.DS_Store, .env. .local, npm-debug.log, yarn-debug.log, yarn-error.log)
