@@ -61,17 +61,20 @@ function ProfileBookings({ url, accessToken }) {
   return (
     <div className="container">
       <div className={styles.bookings_wrap}>
-        <div tabIndex="0" className={styles.left}>
-          <h4
-            className={styles.h4}
-            onClick={() => setShowPrevious(!showPrevious)}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter') {
-                setShowPrevious(!showPrevious);
-              }
-            }}
-          >
-            Your previous bookings <span>View</span>
+        <div className={styles.left}>
+          <h4 className={styles.h4}>
+            Your previous bookings{' '}
+            <span
+              tabIndex="0"
+              onClick={() => setShowPrevious(!showPrevious)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  setShowPrevious(!showPrevious);
+                }
+              }}
+            >
+              View
+            </span>
           </h4>
           <div
             className={`${styles.bookings} ${showPrevious ? styles.show : ''}`}
@@ -98,17 +101,20 @@ function ProfileBookings({ url, accessToken }) {
               : ''}
           </div>
         </div>
-        <div tabIndex="0" className={styles.right}>
-          <h4
-            className={styles.h4}
-            onClick={() => setShowUpcoming(!showUpcoming)}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter') {
-                setShowUpcoming(!showUpcoming);
-              }
-            }}
-          >
-            Your upcoming bookings <span>View</span>
+        <div className={styles.right}>
+          <h4 className={styles.h4}>
+            Your upcoming bookings{' '}
+            <span
+              onClick={() => setShowUpcoming(!showUpcoming)}
+              tabIndex="0"
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  setShowUpcoming(!showUpcoming);
+                }
+              }}
+            >
+              View
+            </span>
           </h4>
           <div
             className={`${styles.bookings} ${showUpcoming ? styles.show : ''}`}

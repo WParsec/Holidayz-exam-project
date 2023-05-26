@@ -22,7 +22,16 @@ function YourVenuesGrid({ venues, styles }) {
             venues.map((venue) => {
               const { id, name, media } = venue;
               return (
-                <div className={styles.venue} key={id}>
+                <div
+                  className={styles.venue}
+                  key={id}
+                  tabIndex="0"
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      setSelectedId(id);
+                    }
+                  }}
+                >
                   <div>
                     <div
                       className={styles.venue_image}
