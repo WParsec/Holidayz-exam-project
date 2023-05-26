@@ -1,3 +1,5 @@
+![Project screenshot](https://github.com/WParsec/holidayz-exam-project/main/
+
 # Holidayz Exam Project
 
 Welcome to the Holidayz Exam Project. This project is the final exam for a 2-year Front-end Study at Noroff School of Technology and Digital Media.

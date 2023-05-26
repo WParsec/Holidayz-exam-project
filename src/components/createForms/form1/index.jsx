@@ -18,7 +18,7 @@ const schema = yup.object().shape({
     .required()
     .max(1000)
     .matches(
-      /^[a-zA-Z0-9 .,!?-]*$/,
+      /^[a-zA-Z0-9 æøå .,!?-]*$/,
       'Unusual special characters are not allowed'
     ),
   price: yup
