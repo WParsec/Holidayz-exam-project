@@ -1,4 +1,4 @@
-![Project screenshot](https://github.com/WParsec/holidayz-exam-project/main/
+![Project screenshot](https://github.com/WParsec/holidayz-exam-project/blob/main/Holidayz-screenshot.png)
 
 # Holidayz Exam Project
 
