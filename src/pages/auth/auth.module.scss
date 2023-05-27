@@ -89,7 +89,7 @@
   :focus-visible {
     cursor: pointer;
     &::after {
-      content: 'If you check this box, you register as a venue manager. A venue manager can create and manage venue listings. It is however not possible for a venue manager to book other venues.';
+      content: 'If you check this box, you register as a venue manager. A venue manager can create and manage venue listings.';
       padding: 1rem;
       height: fit-content;
       width: 100%;
