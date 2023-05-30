@@ -10,7 +10,7 @@ Live site: [Holidayz](https://cerulean-melba-ba6cf3.netlify.app/)
 
 This is an accommodation booking website named Holidayz. The application consists of two parts: a customer-facing side where users can book holidays at a venue, and an admin-facing side where users can register and manage venues and bookings at those venues.
 
-The project was bootstrapped with Create React App.
+The project was created with React.
 
 ## User Stories
 
